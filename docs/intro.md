@@ -1,15 +1,21 @@
 ---
 title: 简介
-order: 1
+order: 2
 group:
   path: /
 nav:
   title: 文档
-  order: 1
+  order: 2
   path: /docs
 ---
 
-![banner](https://gw.alipayobjects.com/zos/antfincdn/7VBnGHwjaW/bianzu%2525202.svg)
+
+
+![table](https://img.shields.io/npm/dw/@tmgg/pro-table.svg)
+
+
+![npm package](https://img.shields.io/npm/v/@tmgg/pro-table.svg?style=flat-square?style=flat-square)
+
 
 ## ProComponents 的理念
 

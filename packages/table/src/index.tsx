@@ -20,11 +20,7 @@ import {
   zhTWIntl,
 } from '@ant-design/pro-provider';
 import type { ProFieldValueType, RowEditableConfig } from '@ant-design/pro-utils';
-import type { DragTableProps } from './components/DragSortTable';
-import DragSortTable from './components/DragSortTable';
 import TableDropdown from './components/Dropdown';
-import type { EditableFormInstance } from './components/EditableTable';
-import EditableProTable from './components/EditableTable';
 import Search from './components/Form';
 import type { ListToolBarProps } from './components/ListToolBar';
 import ListToolBar from './components/ListToolBar';
@@ -39,7 +35,6 @@ export type {
   ProTableProps,
   IntlType,
   ActionType,
-  EditableFormInstance,
   TableRowEditable,
   ColumnsState,
   ProColumnsValueType,
@@ -47,7 +42,6 @@ export type {
   ProColumnType,
   RequestData,
   ListToolBarProps,
-  DragTableProps,
 };
 export {
   ConfigProviderWrap,
@@ -55,8 +49,6 @@ export {
   ListToolBar,
   FieldStatus as TableStatus,
   Search,
-  EditableProTable,
-  DragSortTable,
   ConfigProvider as IntlProvider,
   ConfigProvider,
   ConfigConsumer as IntlConsumer,

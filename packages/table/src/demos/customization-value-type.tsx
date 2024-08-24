@@ -1,5 +1,5 @@
-import type { ProColumns } from '@ant-design/pro-components';
-import { ProProvider, ProTable } from '@ant-design/pro-components';
+import type { ProColumns } from '@ant-design/pro-table';
+import { ProProvider, ProTable } from '@ant-design/pro-table';
 import type { InputRef } from 'antd';
 import { Input, Space, Tag } from 'antd';
 import React, { useContext, useRef, useState } from 'react';

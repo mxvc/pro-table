@@ -1,6 +1,6 @@
 import { DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable, TableDropdown } from '@ant-design/pro-components';
+import type { ProColumns } from '@ant-design/pro-table';
+import { ProTable, TableDropdown } from '@ant-design/pro-table';
 import { Button, Tooltip } from 'antd';
 
 const valueEnum = {

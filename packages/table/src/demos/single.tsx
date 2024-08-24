@@ -1,6 +1,6 @@
 import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable, TableDropdown } from '@ant-design/pro-components';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
+import { ProTable, TableDropdown } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, Space, Tag } from 'antd';
 import { useRef } from 'react';
 import request from 'umi-request';

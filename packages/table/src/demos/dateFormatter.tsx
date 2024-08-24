@@ -1,5 +1,5 @@
-import type { ProColumns, ProFormInstance } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import type { ProColumns, ProFormInstance } from '@ant-design/pro-table';
+import { ProTable } from '@ant-design/pro-table';
 import { useRef, useState } from 'react';
 
 export type TableListItem = {

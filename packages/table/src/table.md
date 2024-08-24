@@ -248,11 +248,7 @@ import { ConfigProvider } from '@ant-design/pro-provide';
 
 <code src="./demos/valueType.tsx" background="#f5f5f5" height="628px" title="valueType - 样式类"/>
 
-#### valueType - 选择类
 
-<code src="./demos/valueType_select.tsx" background="#f5f5f5" height="658px" title="valueType - 选择类"/>
-
-<code src="./demos/customization-value-type.tsx" debug background="#f5f5f5" height="462px" title="自定义 valueType"/>
 
 ### 自定义错误边界
 

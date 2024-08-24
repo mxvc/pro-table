@@ -1,6 +1,6 @@
 import { EllipsisOutlined } from '@ant-design/icons';
-import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import type { ProColumns } from '@ant-design/pro-table';
+import { ProTable } from '@ant-design/pro-table';
 import { Button } from 'antd';
 
 export type TableListItem = {

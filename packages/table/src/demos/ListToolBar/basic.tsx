@@ -1,6 +1,6 @@
 import { EllipsisOutlined, FullscreenOutlined, SettingOutlined } from '@ant-design/icons';
-import type { ProColumns } from '@ant-design/pro-components';
-import { LightFilter, ProFormDatePicker, ProTable } from '@ant-design/pro-components';
+import type { ProColumns } from '@ant-design/pro-table';
+import {   ProTable } from '@ant-design/pro-table';
 import { Button } from 'antd';
 
 export type TableListItem = {
@@ -82,11 +82,7 @@ export default () => {
             alert(value);
           },
         },
-        filter: (
-          <LightFilter>
-            <ProFormDatePicker name="startdate" label="响应日期" />
-          </LightFilter>
-        ),
+
         actions: [
           <Button
             key="key"
