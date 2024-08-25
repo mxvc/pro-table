@@ -1,11 +1,9 @@
-import { FieldIndexColumn, FieldStatus } from '@ant-design/pro-field';
-import type { IntlType } from '@ant-design/pro-provider';
 import {
   ConfigConsumer,
   ConfigProvider,
   ConfigProviderWrap,
 } from '@ant-design/pro-provider';
-import type { ProFieldValueType, RowEditableConfig } from '@ant-design/pro-utils';
+import type { ProFieldValueType } from '@ant-design/pro-utils';
 import Search from './components/Form';
 
 
@@ -14,13 +12,10 @@ import ProTable from './Table';
 import type { ActionType, ProColumns, ProColumnType, ProTableProps, RequestData } from './typing';
 
 type ProColumnsValueType = ProFieldValueType;
-type TableRowEditable<T> = RowEditableConfig<T>;
 
 export type {
   ProTableProps,
-  IntlType,
   ActionType,
-  TableRowEditable,
   ColumnsState,
   ProColumnsValueType,
   ProColumns,
@@ -29,14 +24,9 @@ export type {
 };
 export {
   ConfigProviderWrap,
-  FieldStatus as TableStatus,
   Search,
-  ConfigProvider as IntlProvider,
   ConfigProvider,
-  ConfigConsumer as IntlConsumer,
   ConfigConsumer,
-  FieldIndexColumn as IndexColumn,
-
   ProTable,
 };
 

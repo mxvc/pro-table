@@ -4,7 +4,6 @@ import type { ParamsType } from '@ant-design/pro-provider';
 import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
 import {
   editableRowByKey,
-  ErrorBoundary,
   omitUndefined,
   recordKeyToString,
   useDeepCompareEffect,
@@ -55,7 +54,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     tableColumn: any[];
     toolbarDom: JSX.Element | null;
     searchNode: JSX.Element | null;
-    isLightFilter: boolean;
     onSortChange: (sort: any) => void;
     onFilterChange: (sort: any) => void;
     editableUtils: any;
@@ -80,7 +78,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     onSortChange,
     onFilterChange,
     options,
-    isLightFilter,
     className,
     editableUtils,
     getRowKey,
@@ -263,7 +260,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
       style={style}
       ref={counter.rootDomRef}
     >
-      {isLightFilter ? null : searchNode}
+      { searchNode}
       {/* 渲染一个额外的区域，用于一些自定义 */}
       {type !== 'form' && props.tableExtraRender && (
         <div className={`${className}-extra`}>
@@ -662,8 +659,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     },
   };
 
-  /** 是不是 LightFilter, LightFilter 有一些特殊的处理 */
-  const isLightFilter: boolean = search !== false && search?.filterType === 'light';
 
   const onFormSearchSubmit = <Y extends ParamsType>(values: Y): any => {
     // 判断search.onSearch返回值决定是否更新formSearch
@@ -721,7 +716,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       <Toolbar<T>
         headerTitle={headerTitle}
         hideToolbar={
-          options === false && !headerTitle && !toolBarRender && !toolbar && !isLightFilter
+          options === false && !headerTitle && !toolBarRender && !toolbar
         }
         selectedRows={selectedRowsRef.current}
         selectedRowKeys={selectedRowKeys!}
@@ -733,7 +728,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
             ...newValues,
           });
         }}
-        searchNode={isLightFilter ? searchNode : null}
+        searchNode={searchNode }
         options={options}
         actionRef={actionRef}
         toolBarRender={toolBarRender}
@@ -752,7 +747,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       rowSelection={propsRowSelection !== false ? rowSelection : undefined}
       className={className}
       tableColumn={tableColumn}
-      isLightFilter={isLightFilter}
       action={action}
       toolbarDom={toolbarDom}
       onSortChange={setProSort}
@@ -776,17 +770,14 @@ const ProviderWarp = <
   props: ProTableProps<DataType, Params, ValueType>,
 ) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const ErrorComponent =
-    props.ErrorBoundary === false ? React.Fragment : props.ErrorBoundary || ErrorBoundary;
+
   return (
     <Container.Provider initialState={props}>
       <ConfigProviderWrap>
-        <ErrorComponent>
           <ProTable<DataType, Params, ValueType>
             defaultClassName={getPrefixCls('pro-table')}
             {...props}
           />
-        </ErrorComponent>
       </ConfigProviderWrap>
     </Container.Provider>
   );
