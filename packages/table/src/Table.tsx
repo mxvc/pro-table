@@ -1,5 +1,5 @@
 /* eslint max-classes-per-file: ["error", 3] */
-import ProCard from '@ant-design/pro-card';
+
 import ProForm from '@ant-design/pro-form';
 import type { ParamsType } from '@ant-design/pro-provider';
 import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
@@ -14,7 +14,7 @@ import {
   useMountMergeState,
 } from '@ant-design/pro-utils';
 import type { TablePaginationConfig } from 'antd';
-import { ConfigProvider, Table } from 'antd';
+import { ConfigProvider, Table,Card } from 'antd';
 import type { GetRowKey, SortOrder, TableCurrentDataSource } from 'antd/lib/table/interface';
 import classNames from 'classnames';
 import React, {
@@ -77,7 +77,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     toolbarDom,
     searchNode,
     style,
-    cardProps,
     name,
     onSortChange,
     onFilterChange,
@@ -234,13 +233,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
   }, [ props.loading,  tableDom, toolbarDom]);
 
   /** Table 区域的 dom，为了方便 render */
-  const tableAreaDom =
-    // cardProps 或者 有了name 就不需要这个padding了，不然会导致不好对齐
-    cardProps === false || !!props.name ? (
-      tableContentDom
-    ) : (
-      <ProCard
-        ghost={props.ghost}
+  const tableAreaDom =     <Card
         bordered={isBordered('table', cardBordered)}
         bodyStyle={
           toolbarDom
@@ -251,11 +244,9 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
                 padding: 0,
               }
         }
-        {...cardProps}
       >
         {tableContentDom}
-      </ProCard>
-    );
+      </Card>
 
   const renderTable = () => {
     if (props.tableRender) {
@@ -323,7 +314,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     onLoad,
     onRequestError,
     style,
-    cardProps,
     tableStyle,
     tableClassName,
     columnsStateMap,

@@ -38,19 +38,6 @@
     classnames "^2.2.6"
     rc-util "^5.9.4"
 
-"@ant-design/pro-card@1.20.22":
-  version "1.20.22"
-  resolved "https://registry.npmmirror.com/@ant-design/pro-card/-/pro-card-1.20.22.tgz#8a60ab12a557d94ef05ca383344ff856ba599b25"
-  integrity sha512-du4yMSLflfI+SOx7n87FtiPaEmGtWDN4yFC2vfQZQ6rhO0SVAOI2vRPKoXKOZn8Pr9fXVQGo+uPsVXJMZ3WwPg==
-  dependencies:
-    "@ant-design/icons" "^4.2.1"
-    "@ant-design/pro-utils" "1.45.3"
-    "@babel/runtime" "^7.18.0"
-    antd "^4.20.0 "
-    classnames "^2.2.6"
-    omit.js "^2.0.2"
-    rc-util "^5.4.0"
-
 "@ant-design/pro-field@1.36.7":
   version "1.36.7"
   resolved "https://registry.npmmirror.com/@ant-design/pro-field/-/pro-field-1.36.7.tgz#dc4ca402da2d46afe6fcd17559a4663c20f6d6dd"

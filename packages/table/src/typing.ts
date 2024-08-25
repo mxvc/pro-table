@@ -1,5 +1,4 @@
-﻿import type { ProCardProps } from '@ant-design/pro-card';
-import type { ProFieldEmptyText } from '@ant-design/pro-field';
+﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
 import type { LightWrapperProps, ProFormProps, QueryFilterProps } from '@ant-design/pro-form';
 import type {
   ProCoreActionType,
@@ -227,10 +226,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
   onSizeChange?: (size: DensitySize) => void;
 
-  /**
-   * @name table 外面卡片的设置
-   */
-  cardProps?: ProCardProps | false;
+
 
   /**
    * @name 渲染 table
