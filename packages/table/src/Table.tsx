@@ -41,7 +41,7 @@ import type {
 import useFetchData from './useFetchData';
 import {
   genColumnKey,
-  isBordered,
+
   mergePagination,
   parseDefaultColumnConfig,
   useActionType,
@@ -82,7 +82,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     options,
     isLightFilter,
     className,
-    cardBordered,
     editableUtils,
     getRowKey,
     ...rest
@@ -233,7 +232,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
 
   /** Table 区域的 dom，为了方便 render */
   const tableAreaDom =     <Card
-        bordered={isBordered('table', cardBordered)}
         bodyStyle={
           toolbarDom
             ? {
@@ -298,7 +296,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   },
 ) => {
   const {
-    cardBordered,
     request,
     className: propsClassName,
     params = emptyObj,
@@ -312,11 +309,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     toolBarRender,
     onLoad,
     onRequestError,
-    style,
-    tableStyle,
-    tableClassName,
-    columnsStateMap,
-    onColumnsStateChange,
+
     options,
     search,
     name: isEditorTable,

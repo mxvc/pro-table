@@ -74,7 +74,6 @@ ProTable puts a layer of wrapping on top of antd's Table, supports some presets,
 | tableExtraRender | Custom table body functions | `(props: ProTableProps<T, U>, dataSource: T[]) => ReactNode;` | - |
 | manualRequest | Whether or not the first request needs to be triggered manually, with `true` not hiding the search form | `boolean` | false |
 | editable | Configuration for editable tables | [TableRowEditable<T>](#editable) | - |
-| cardBordered | Borders for Table and Search outer Card components | `boolean \| {search?: boolean, table?: boolean}` | false |
 
 #### RecordCreator
 

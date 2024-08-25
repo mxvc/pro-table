@@ -3,7 +3,6 @@ import type { TablePaginationConfig } from 'antd';
 import omit from 'omit.js';
 import React from 'react';
 import type { ActionType, ProTableProps } from '../../typing';
-import { isBordered } from '../../utils/index';
 import FormRender from './FormRender';
 import './index.less';
 
@@ -19,7 +18,7 @@ type BaseFormProps<T, U> = {
   dateFormatter: ProTableProps<T, U, any>['dateFormatter'];
   formRef: ProTableProps<T, U, any>['formRef'];
   type: ProTableProps<T, U, any>['type'];
-  cardBordered: ProTableProps<T, U, any>['cardBordered'];
+
   form: ProTableProps<T, U, any>['form'];
   search: ProTableProps<T, U, any>['search'];
   manualRequest: ProTableProps<T, U, any>['manualRequest'];
@@ -104,7 +103,7 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       loading,
       formRef,
       type,
-      cardBordered,
+
       dateFormatter,
       form,
       search,
@@ -115,7 +114,7 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       loading,
       formRef,
       type,
-      cardBordered,
+
       dateFormatter,
       form,
       search,
@@ -126,7 +125,7 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       formRef: next.formRef,
       loading: next.loading,
       type: next.type,
-      cardBordered: next.cardBordered,
+
       dateFormatter: next.dateFormatter,
       form: next.form,
       search: next.search,
@@ -145,7 +144,7 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       formRef,
       type,
       action,
-      cardBordered,
+
       dateFormatter,
       form,
       search,
@@ -181,7 +180,7 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
           },
         }}
         action={action}
-        bordered={isBordered('search', cardBordered)}
+
       />
     );
   };
