@@ -6,7 +6,7 @@
 import {Input, Space} from 'antd';
 import type {SearchProps} from 'antd/lib/input';
 import classNames from 'classnames';
-import React, {useMemo} from 'react';
+import React from 'react';
 import './index.less';
 type SearchPropType = SearchProps | boolean;
 
@@ -26,29 +26,73 @@ export type ListToolBarProps = {
     /** 工作栏右侧设置区 */
     settings?: React.ReactNode[];
 };
-const ListToolBar: React.FC<ListToolBarProps> = ({
-                                                     title,
-                                                     className,
-                                                     style,
-                                                     search,
-                                                     onSearch,
 
-                                                     actions = [], // toolbarRender 的内容
-                                                     settings = [],
-                                                 }) => {
+export default class ListToolBar extends React.Component<ListToolBarProps> {
 
-    const width = window.innerWidth;
-    const isMobile = width < 768;
+    static defaultProps = {actions: [], settings: []}
 
-    const placeholder = '搜索...';
+    render() {
+        const {
+            title,
+            className,
+            style,
+            search,
+            onSearch,
 
-    const prefixCls = 'ant-pro-table-list-toolbar';
+            actions, // toolbarRender 的内容
+            settings,
+        } = this.props;
+
+        const isMobile = window.innerWidth < 768;
+
+        const placeholder = '搜索...';
+
+        const prefixCls = 'ant-pro-table-list-toolbar';
 
 
+        return (
+            <div style={style} className={classNames(`${prefixCls}`, className)}>
+                <div className={classNames(`${prefixCls}-container`, {[`${prefixCls}-container-mobile`]: isMobile})}>
+                    <div className={`${prefixCls}-left`}>{title}</div>
 
-    /** 没有 key 的时候帮忙加一下 key 不加的话很烦人 */
-    const actionDom = useMemo(() => {
+                    <Space
+                        className={`${prefixCls}-right`}
+                        direction={isMobile ? 'vertical' : 'horizontal'}
+                        size={16}
+                        align={isMobile ? 'end' : 'center'}
+                    >
+                        {search ? <div className={`${prefixCls}-search`}>
+                            <Input.Search
+                                style={{width: 200}}
+                                placeholder={placeholder}
+                                {...(search as SearchProps)}
+                                onSearch={(...restParams) => {
+                                    onSearch?.(restParams?.[0]);
+                                    (search as SearchProps).onSearch?.(...restParams);
+                                }}
+                            />
+                        </div> : null}
 
+                        {this.renderActions(actions)}
+                        {settings?.length ? (
+                            <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
+                                {settings.map((setting, index) => {
+                                    return (
+                                        <div key={index} className={`${prefixCls}-setting-item`}>
+                                            {setting}
+                                        </div>
+                                    );
+                                })}
+                            </Space>
+                        ) : null}
+                    </Space>
+                </div>
+            </div>
+        );
+    }
+
+
+     renderActions = (actions: React.ReactNode[] | undefined) => {
         if (!Array.isArray(actions)) {
             return actions;
         }
@@ -70,60 +114,6 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
                 })}
             </Space>
         );
-    }, [actions]);
+    }
+}
 
-
-    const leftTitleDom = <div className={`${prefixCls}-left`}>{title}</div>;
-    const rightTitleDom = useMemo(() => {
-        return (
-            <Space
-                className={`${prefixCls}-right`}
-                direction={isMobile ? 'vertical' : 'horizontal'}
-                size={16}
-                align={isMobile ? 'end' : 'center'}
-            >
-                {search ? <div className={`${prefixCls}-search`}>
-                    <Input.Search
-                        style={{width: 200}}
-                        placeholder={placeholder}
-                        {...(search as SearchProps)}
-                        onSearch={(...restParams) => {
-                            onSearch?.(restParams?.[0]);
-                            (search as SearchProps).onSearch?.(...restParams);
-                        }}
-                    />
-                </div> : null}
-
-                {actionDom}
-                {settings?.length ? (
-                    <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
-                        {settings.map((setting, index) => {
-                            return (
-                                <div key={index} className={`${prefixCls}-setting-item`}>
-                                    {setting}
-                                </div>
-                            );
-                        })}
-                    </Space>
-                ) : null}
-            </Space>
-        );
-    }, [
-        actionDom,
-        isMobile,
-        prefixCls,
-        settings,
-    ]);
-
-
-    return (
-        <div style={style} className={classNames(`${prefixCls}`, className)}>
-            <div className={classNames(`${prefixCls}-container`, {[`${prefixCls}-container-mobile`]: isMobile})}>
-                {leftTitleDom}
-                {rightTitleDom}
-            </div>
-        </div>
-    );
-};
-
-export default ListToolBar;
