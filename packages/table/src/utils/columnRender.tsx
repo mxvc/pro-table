@@ -9,7 +9,7 @@ import React from 'react';
 import { isMergeCell } from '.';
 import type { useContainer } from '../container';
 import type { ActionType, ProColumns } from '../typing';
-import cellRenderToFromItem from './cellRenderToFromItem';
+import cellRenderToFormItem from './cellRenderToFormItem';
 
 /** 转化列的定义 */
 type ColumnRenderInterface<T> = {
@@ -72,7 +72,7 @@ export function columnRender<T>({
   // @ts-ignore
   const renderTextStr = renderText(text, rowData, index, action as ActionType);
 
-  const textDom = cellRenderToFromItem<T>({
+  const textDom = cellRenderToFormItem<T>({
     text: renderTextStr,
     valueType: (columnProps.valueType as ProFieldValueType) || 'text',
     index,

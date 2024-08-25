@@ -40,7 +40,7 @@ type CellRenderFromItemProps<T> = {
  * @param text
  * @param valueType
  */
-function cellRenderToFromItem<T>(config: CellRenderFromItemProps<T>): React.ReactNode {
+export default  function cellRenderToFormItem<T>(config: CellRenderFromItemProps<T>): React.ReactNode {
   const { text, valueType, rowData, columnProps } = config;
 
   // 如果 valueType === text ，没必要多走一次 render
@@ -55,7 +55,7 @@ function cellRenderToFromItem<T>(config: CellRenderFromItemProps<T>): React.Reac
 
   if (typeof valueType === 'function' && rowData) {
     // 防止valueType是函数,并且text是''、null、undefined跳过显式设置的columnEmptyText
-    return cellRenderToFromItem({
+    return cellRenderToFormItem({
       ...config,
       valueType: valueType(rowData, config.type) || 'text',
     });
@@ -92,4 +92,3 @@ function cellRenderToFromItem<T>(config: CellRenderFromItemProps<T>): React.Reac
     );
 }
 
-export default cellRenderToFromItem;
