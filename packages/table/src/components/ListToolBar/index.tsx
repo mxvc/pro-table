@@ -8,7 +8,6 @@ import type {LabelTooltipType} from 'antd/lib/form/FormItemLabel';
 import type {SearchProps} from 'antd/lib/input';
 import classNames from 'classnames';
 import React, {useMemo} from 'react';
-import useAntdMediaQuery from 'use-media-antd-query';
 import './index.less';
 
 export type ListToolBarSetting = {
@@ -19,7 +18,7 @@ export type ListToolBarSetting = {
 };
 
 
-type SearchPropType = SearchProps | React.ReactNode | boolean;
+type SearchPropType = SearchProps | boolean;
 type SettingPropType = React.ReactNode | ListToolBarSetting;
 
 export type ListToolBarProps = {
@@ -83,39 +82,14 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
                                                      actions = [], // toolbarRender 的内容
                                                      settings = [],
                                                  }) => {
-    const colSize = useAntdMediaQuery();
 
-    const isMobile = colSize === 'sm' || colSize === 'xs';
+    const width = window.innerWidth;
+    const isMobile = width < 768;
 
-    const placeholder = '请输入';
-
-    /**
-     * 获取搜索栏 DOM
-     *
-     * @param search 搜索框相关配置
-     */
-    const searchNode = useMemo(() => {
-        if (!search) {
-            return null;
-        }
-        if (React.isValidElement(search)) {
-            return search;
-        }
-        return (
-            <Input.Search
-                style={{width: 200}}
-                placeholder={placeholder}
-                {...(search as SearchProps)}
-                onSearch={(...restParams) => {
-                    onSearch?.(restParams?.[0]);
-                    (search as SearchProps).onSearch?.(...restParams);
-                }}
-            />
-        );
-    }, [placeholder, onSearch, search]);
+    const placeholder = '搜索...';
 
     const prefixCls = 'ant-pro-table-list-toolbar';
-    console.log('prefixCls', prefixCls)
+
 
 
     /** 没有 key 的时候帮忙加一下 key 不加的话很烦人 */
@@ -154,7 +128,18 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
                 size={16}
                 align={isMobile ? 'end' : 'center'}
             >
-                {searchNode ? <div className={`${prefixCls}-search`}>{searchNode}</div> : null}
+                {search ? <div className={`${prefixCls}-search`}>
+                    <Input.Search
+                        style={{width: 200}}
+                        placeholder={placeholder}
+                        {...(search as SearchProps)}
+                        onSearch={(...restParams) => {
+                            onSearch?.(restParams?.[0]);
+                            (search as SearchProps).onSearch?.(...restParams);
+                        }}
+                    />
+                </div> : null}
+
                 {actionDom}
                 {settings?.length ? (
                     <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
@@ -174,18 +159,14 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
     }, [
         actionDom,
         isMobile,
-
         prefixCls,
-        searchNode,
         settings,
     ]);
 
 
     return (
         <div style={style} className={classNames(`${prefixCls}`, className)}>
-            <div className={classNames(`${prefixCls}-container`, {
-                [`${prefixCls}-container-mobile`]: isMobile,
-            })}>
+            <div className={classNames(`${prefixCls}-container`, {[`${prefixCls}-container-mobile`]: isMobile})}>
                 {leftTitleDom}
                 {rightTitleDom}
             </div>
