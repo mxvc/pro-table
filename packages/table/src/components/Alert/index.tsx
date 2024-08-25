@@ -1,12 +1,9 @@
-import type { IntlType } from '@ant-design/pro-provider';
-import { useIntl } from '@ant-design/pro-provider';
 import { Alert, ConfigProvider, Space } from 'antd';
 import React, { useContext } from 'react';
 import './index.less';
 
 export type AlertRenderType<T> =
   | ((props: {
-      intl: IntlType;
       selectedRowKeys: (number | string)[];
       selectedRows: T[];
       onCleanSelected: () => void;
@@ -22,11 +19,11 @@ export type TableAlertProps<T> = {
   alertOptionRender?: AlertRenderType<T>;
 };
 
-const defaultAlertOptionRender = (props: { intl: IntlType; onCleanSelected: () => void }) => {
-  const { intl, onCleanSelected } = props;
+const defaultAlertOptionRender = (props: {  onCleanSelected: () => void }) => {
+  const { onCleanSelected } = props;
   return [
     <a onClick={onCleanSelected} key="0">
-      {intl.getMessage('alert.clear', '清空')}
+     清空
     </a>,
   ];
 };
@@ -36,16 +33,15 @@ function TableAlert<T>({
   onCleanSelected,
   alwaysShowAlert,
   selectedRows,
-  alertInfoRender = ({ intl }) => (
+  alertInfoRender = ({  }) => (
     <Space>
-      {intl.getMessage('alert.selected', '已选择')}
+      已选择
       {selectedRowKeys.length}
-      {intl.getMessage('alert.item', '项')}&nbsp;&nbsp;
+      项&nbsp;&nbsp;
     </Space>
   ),
   alertOptionRender = defaultAlertOptionRender,
 }: TableAlertProps<T>) {
-  const intl = useIntl();
 
   const option =
     alertOptionRender &&
@@ -53,7 +49,6 @@ function TableAlert<T>({
       onCleanSelected,
       selectedRowKeys,
       selectedRows,
-      intl,
     });
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -61,7 +56,7 @@ function TableAlert<T>({
   if (alertInfoRender === false) {
     return null;
   }
-  const dom = alertInfoRender({ intl, selectedRowKeys, selectedRows, onCleanSelected });
+  const dom = alertInfoRender({ selectedRowKeys, selectedRows, onCleanSelected });
 
   if (dom === false || (selectedRowKeys.length < 1 && !alwaysShowAlert)) {
     return null;
