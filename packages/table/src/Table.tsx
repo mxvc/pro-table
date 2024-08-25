@@ -1,6 +1,5 @@
 /* eslint max-classes-per-file: ["error", 3] */
 
-import ProForm from '@ant-design/pro-form';
 import type { ParamsType } from '@ant-design/pro-provider';
 import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
 import {

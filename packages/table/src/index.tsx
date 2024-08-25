@@ -20,7 +20,6 @@ import {
   zhTWIntl,
 } from '@ant-design/pro-provider';
 import type { ProFieldValueType, RowEditableConfig } from '@ant-design/pro-utils';
-import TableDropdown from './components/Dropdown';
 import Search from './components/Form';
 import type { ListToolBarProps } from './components/ListToolBar';
 import ListToolBar from './components/ListToolBar';
@@ -45,7 +44,6 @@ export type {
 };
 export {
   ConfigProviderWrap,
-  TableDropdown,
   ListToolBar,
   FieldStatus as TableStatus,
   Search,

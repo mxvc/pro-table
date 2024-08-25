@@ -1,5 +1,5 @@
 import {PlusOutlined} from '@ant-design/icons';
-import {ProTable} from '@ant-design/pro-table';
+import {ProTable, TableDropdown} from '@ant-design/pro-table';
 import {Button} from 'antd';
 import request from 'umi-request';
 
@@ -68,6 +68,7 @@ const columns = [
             <a key="view">
                 查看
             </a>,
+
 
         ],
     },
