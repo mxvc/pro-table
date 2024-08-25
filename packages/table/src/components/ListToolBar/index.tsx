@@ -1,7 +1,7 @@
 import { useIntl } from '@ant-design/pro-provider';
 import { LabelIconTip } from '@ant-design/pro-utils';
 import type { TabPaneProps } from 'antd';
-import { ConfigProvider, Input, Space, Tabs, Tooltip } from 'antd';
+import { ConfigProvider, Input, Space,  Tooltip } from 'antd';
 import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
 import type { SearchProps } from 'antd/lib/input';
 import classNames from 'classnames';
@@ -95,27 +95,7 @@ function getSettingItem(setting: SettingPropType) {
   return null;
 }
 
-const ListToolBarTabBar: React.FC<{
-  prefixCls: string;
-  filtersNode: React.ReactNode;
-  multipleLine: boolean;
-  tabs: ListToolBarProps['tabs'];
-}> = ({ prefixCls, tabs = {}, multipleLine, filtersNode }) => {
-  if (!multipleLine) return null;
-  return (
-    <div className={`${prefixCls}-extra-line`}>
-      {tabs.items && tabs.items.length ? (
-        <Tabs activeKey={tabs.activeKey} onChange={tabs.onChange} tabBarExtraContent={filtersNode}>
-          {tabs.items.map((tab, index) => (
-            <Tabs.TabPane key={tab.key || index} {...tab} />
-          ))}
-        </Tabs>
-      ) : (
-        filtersNode
-      )}
-    </div>
-  );
-};
+
 const ListToolBar: React.FC<ListToolBarProps> = ({
   prefixCls: customizePrefixCls,
   title,
@@ -129,7 +109,6 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
   filter,
   actions = [],
   settings = [],
-  tabs = {},
   menu,
 }) => {
   const intl = useIntl();
@@ -300,12 +279,6 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
   return (
     <div style={style} className={classNames(`${prefixCls}`, className)}>
       {titleNode}
-      <ListToolBarTabBar
-        filtersNode={filtersNode}
-        prefixCls={prefixCls}
-        tabs={tabs}
-        multipleLine={multipleLine}
-      />
     </div>
   );
 };

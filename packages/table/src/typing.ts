@@ -137,12 +137,7 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     /** @name 只读 */
     readonly?: boolean;
 
-    /** @name 列设置的 disabled */
-    disable?:
-      | boolean
-      | {
-          checkbox: boolean;
-        };
+
   },
   ProSchemaComponentTypes,
   ValueType,

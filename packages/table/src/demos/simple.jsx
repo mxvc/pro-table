@@ -13,7 +13,6 @@ const columns = [
         tip: '标题过长会自动收缩',
     },
     {
-        disable: true,
         title: '状态',
         dataIndex: 'state',
         filters: true,
