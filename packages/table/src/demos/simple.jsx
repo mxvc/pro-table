@@ -78,7 +78,6 @@ export default () => {
     return (
         <ProTable
             columns={columns}
-            cardBordered
             request={async (params = {}, sort, filter) => {
                 console.log(sort, filter);
                 return request('https://proapi.azurewebsites.net/github/issues', {
@@ -87,11 +86,13 @@ export default () => {
             }}
             toolbar={{
                 title:'你好',
+
             }}
             options={{
                 fullScreen:true,
-                search:true
+                search:true,
             }}
+
             rowKey="id"
             toolBarRender={() => [
                 <Button key="button" icon={<PlusOutlined/>} type="primary">

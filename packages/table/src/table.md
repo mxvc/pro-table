@@ -13,6 +13,3 @@ nav:
 
 <code src="./demos/simple.jsx"   background="#f5f5f5" />
 
-### 多选
-
-<code src="./demos/rowSelection.jsx"  background="#f5f5f5"/>

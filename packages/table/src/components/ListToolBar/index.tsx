@@ -3,23 +3,12 @@
  *
  * 原来的左右判断太复杂，调整为设置title属性，由用户自行设置
  */
-import {Input, Space, Tooltip} from 'antd';
-import type {LabelTooltipType} from 'antd/lib/form/FormItemLabel';
+import {Input, Space} from 'antd';
 import type {SearchProps} from 'antd/lib/input';
 import classNames from 'classnames';
 import React, {useMemo} from 'react';
 import './index.less';
-
-export type ListToolBarSetting = {
-    icon: React.ReactNode;
-    tooltip?: LabelTooltipType | string;
-    key?: string;
-    onClick?: (key?: string) => void;
-};
-
-
 type SearchPropType = SearchProps | boolean;
-type SettingPropType = React.ReactNode | ListToolBarSetting;
 
 export type ListToolBarProps = {
     prefixCls?: string;
@@ -35,43 +24,8 @@ export type ListToolBarProps = {
     /** 工具栏右侧操作区 */
     actions?: React.ReactNode[];
     /** 工作栏右侧设置区 */
-    settings?: SettingPropType[];
+    settings?: React.ReactNode[];
 };
-
-/**
- * 获取配置区域 DOM Item
- *
- * @param setting 配置项
- */
-function getSettingItem(setting: SettingPropType) {
-    if (React.isValidElement(setting)) {
-        return setting;
-    }
-    if (setting) {
-        const settingConfig: ListToolBarSetting = setting as ListToolBarSetting;
-        const {icon, tooltip, onClick, key} = settingConfig;
-        if (icon && tooltip) {
-            return (
-                <Tooltip title={tooltip as React.ReactNode}>
-          <span
-              key={key}
-              onClick={() => {
-                  if (onClick) {
-                      onClick(key);
-                  }
-              }}
-          >
-            {icon}
-          </span>
-                </Tooltip>
-            );
-        }
-        return icon;
-    }
-    return null;
-}
-
-
 const ListToolBar: React.FC<ListToolBarProps> = ({
                                                      title,
                                                      className,
@@ -144,11 +98,9 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
                 {settings?.length ? (
                     <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
                         {settings.map((setting, index) => {
-                            const settingItem = getSettingItem(setting);
                             return (
-                                // eslint-disable-next-line react/no-array-index-key
                                 <div key={index} className={`${prefixCls}-setting-item`}>
-                                    {settingItem}
+                                    {setting}
                                 </div>
                             );
                         })}
