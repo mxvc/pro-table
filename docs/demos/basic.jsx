@@ -12,8 +12,6 @@ const columns = [
     {
         title: '状态',
         dataIndex: 'state',
-        filters: true,
-        onFilter: true,
         valueType: 'select',
         valueEnum: {
             all: {text: '超长'.repeat(50)},
