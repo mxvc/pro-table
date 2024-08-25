@@ -12,14 +12,6 @@ import type {
   ProColumnType,
   UseFetchDataAction,
 } from '../typing';
-
-/**
- * 检查值是否存在 为了 避开 0 和 false
- *
- * @param value
- */
-export const checkUndefinedOrNull = (value: any) => value !== undefined && value !== null;
-
 /**
  * 合并用户 props 和 预设的 props
  *
@@ -199,22 +191,4 @@ export function parseDefaultColumnConfig<T, Value>(columns: ProColumns<T, Value>
     }
   });
   return { sort, filter };
-}
-
-export type SortDataParams = { oldIndex: number; newIndex: number };
-
-/**
- * 数据排序核心逻辑
- *
- * @param oldIndex 原始位置
- * @param newIndex 新位置
- * @param data 原始数组
- */
-export function sortData<T>({ oldIndex, newIndex }: SortDataParams, data: T[]): T[] | null {
-  if (oldIndex !== newIndex) {
-    const newData = arrayMoveImmutable([...(data || [])], oldIndex, newIndex).filter((el) => !!el);
-    return [...newData];
-  }
-  /* istanbul ignore next */
-  return null;
 }

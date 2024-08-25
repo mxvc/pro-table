@@ -1,6 +1,4 @@
 import { ReloadOutlined, SettingOutlined } from '@ant-design/icons';
-import type { IntlType } from '@ant-design/pro-provider';
-import { useIntl } from '@ant-design/pro-provider';
 import { isDeepEqualReact, omitUndefined } from '@ant-design/pro-utils';
 import type { TableColumnType } from 'antd';
 import { Tooltip } from 'antd';
@@ -41,8 +39,6 @@ export type OptionsType = OptionsFunctionType | boolean;
 export type ToolBarProps<T = unknown> = {
   headerTitle?: React.ReactNode;
   tooltip?: string | LabelTooltipType;
-  /** @deprecated 你可以使用 tooltip，这个更改是为了与 antd 统一 */
-  tip?: string;
   toolbar?: ListToolBarProps;
   toolBarRender?: (
     action: ActionType | undefined,
@@ -60,26 +56,22 @@ export type ToolBarProps<T = unknown> = {
   columns: TableColumnType<T>[];
 };
 
-function getButtonText({
-  intl,
-}: OptionConfig & {
-  intl: IntlType;
-}) {
+function getButtonText() {
   return {
     reload: {
-      text: intl.getMessage('tableToolBar.reload', '刷新'),
+      text: '刷新',
       icon: <ReloadOutlined />,
     },
     density: {
-      text: intl.getMessage('tableToolBar.density', '表格密度'),
+      text: '表格密度',
       icon: <DensityIcon />,
     },
     setting: {
-      text: intl.getMessage('tableToolBar.columnSetting', '列设置'),
+      text: '列设置',
       icon: <SettingOutlined />,
     },
     fullScreen: {
-      text: intl.getMessage('tableToolBar.fullScreen', '全屏'),
+      text: '全屏',
       icon: <FullScreenIcon />,
     },
   };
@@ -93,9 +85,7 @@ function getButtonText({
  */
 function renderDefaultOption<T>(
   options: OptionConfig,
-  defaultOptions: OptionConfig & {
-    intl: IntlType;
-  },
+  defaultOptions: OptionConfig ,
   actions: React.MutableRefObject<ActionType | undefined>,
   columns: TableColumnType<T>[],
 ) {
@@ -126,7 +116,7 @@ function renderDefaultOption<T>(
           </span>
         );
       }
-      const optionItem = getButtonText(defaultOptions)[key];
+      const optionItem = getButtonText()[key];
       if (optionItem) {
         return (
           <span key={key} onClick={onClick}>
@@ -150,11 +140,9 @@ function ToolBar<T>({
   toolbar,
   onSearch,
   columns,
-  ...rest
 }: ToolBarProps<T>) {
   const counter = Container.useContainer();
 
-  const intl = useIntl();
   const optionDom = useMemo(() => {
     const defaultOptions = {
       reload: () => action?.current?.reload(),
@@ -177,12 +165,11 @@ function ToolBar<T>({
       options,
       {
         ...defaultOptions,
-        intl,
       },
       action,
       columns,
     );
-  }, [action, columns, intl, propsOptions]);
+  }, [action, columns,  propsOptions]);
   // 操作列表
   const actions = toolBarRender
     ? toolBarRender(action?.current, { selectedRowKeys, selectedRows })
@@ -217,7 +204,7 @@ function ToolBar<T>({
   return (
     <ListToolBar
       title={headerTitle}
-      tooltip={tooltip || rest.tip}
+      tooltip={tooltip }
       search={searchConfig}
       onSearch={onSearch}
       actions={actions}
