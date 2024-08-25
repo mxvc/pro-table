@@ -717,7 +717,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
             ...newValues,
           });
         }}
-        searchNode={searchNode }
         options={options}
         actionRef={actionRef}
         toolBarRender={toolBarRender}

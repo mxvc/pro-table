@@ -134,7 +134,6 @@ function renderDefaultOption<T>(
 
 function ToolBar<T>({
   headerTitle,
-  tooltip,
   toolBarRender,
   action,
   options: propsOptions,
@@ -219,7 +218,6 @@ function ToolBar<T>({
 export type ToolbarRenderProps<T> = {
   hideToolbar: boolean;
   onFormSearchSubmit: (params: any) => void;
-  searchNode: React.ReactNode;
   tableColumn: any[];
   tooltip?: string | LabelTooltipType;
   selectedRows: T[];
@@ -298,9 +296,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
     );
   };
   shouldComponentUpdate = (next: ToolbarRenderProps<T>) => {
-    if (next.searchNode) {
-      return true;
-    }
     return !this.isEquals(next);
   };
 
@@ -309,7 +304,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
       hideToolbar,
       tableColumn,
       options,
-      searchNode,
       tooltip,
       selectedRows,
       selectedRowKeys,
