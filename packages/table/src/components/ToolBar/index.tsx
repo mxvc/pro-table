@@ -90,7 +90,7 @@ function renderDefaultOption<T>(
   columns: TableColumnType<T>[],
 ) {
   return Object.keys(options)
-    .filter((item) => item)
+     .filter((item) => item)
     .map((key) => {
       const value = options[key];
       if (!value) {

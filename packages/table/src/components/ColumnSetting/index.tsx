@@ -4,7 +4,6 @@ import {
   VerticalAlignMiddleOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { useIntl } from '@ant-design/pro-provider';
 import { runFunction, useRefFunction } from '@ant-design/pro-utils';
 import type { TableColumnType } from 'antd';
 import { Checkbox, ConfigProvider, Popover, Space, Tooltip, Tree } from 'antd';
@@ -69,13 +68,12 @@ const CheckboxListItem: React.FC<{
   fixed?: boolean | 'left' | 'right';
   isLeaf?: boolean;
 }> = ({ columnKey, isLeaf, title, className, fixed }) => {
-  const intl = useIntl();
   const dom = (
     <span className={`${className}-list-item-option`}>
       <ToolTipIcon
         columnKey={columnKey}
         fixed="left"
-        title={intl.getMessage('tableToolBar.leftPin', '固定在列首')}
+        title='固定在列首'
         show={fixed !== 'left'}
       >
         <VerticalAlignTopOutlined />
@@ -83,7 +81,7 @@ const CheckboxListItem: React.FC<{
       <ToolTipIcon
         columnKey={columnKey}
         fixed={undefined}
-        title={intl.getMessage('tableToolBar.noPin', '不固定')}
+        title='不固定'
         show={!!fixed}
       >
         <VerticalAlignMiddleOutlined />
@@ -91,7 +89,7 @@ const CheckboxListItem: React.FC<{
       <ToolTipIcon
         columnKey={columnKey}
         fixed="right"
-        title={intl.getMessage('tableToolBar.rightPin', '固定在列尾')}
+        title='固定在列尾'
         show={fixed !== 'right'}
       >
         <VerticalAlignBottomOutlined />
@@ -244,7 +242,6 @@ const GroupCheckboxList: React.FC<{
   const rightList: (ProColumns<any> & { index?: number })[] = [];
   const leftList: (ProColumns<any> & { index?: number })[] = [];
   const list: (ProColumns<any> & { index?: number })[] = [];
-  const intl = useIntl();
 
   localColumns.forEach((item) => {
     /** 不在 setting 中展示的 */
@@ -272,7 +269,7 @@ const GroupCheckboxList: React.FC<{
       })}
     >
       <CheckboxList
-        title={intl.getMessage('tableToolBar.leftFixedTitle', '固定在左侧')}
+        title='固定在左侧'
         list={leftList}
         draggable={draggable}
         checkable={checkable}
@@ -284,13 +281,13 @@ const GroupCheckboxList: React.FC<{
         list={list}
         draggable={draggable}
         checkable={checkable}
-        title={intl.getMessage('tableToolBar.noFixedTitle', '不固定')}
+        title='不固定'
         showTitle={showLeft || showRight}
         className={className}
         listHeight={listsHeight}
       />
       <CheckboxList
-        title={intl.getMessage('tableToolBar.rightFixedTitle', '固定在右侧')}
+        title='固定在右侧'
         list={rightList}
         draggable={draggable}
         checkable={checkable}
@@ -368,7 +365,6 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
   // 是否已经选中
   const indeterminate = unCheckedKeys.length > 0 && unCheckedKeys.length !== localColumns.length;
 
-  const intl = useIntl();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const className = getPrefixCls('pro-table-column-setting');
   return (
@@ -381,11 +377,11 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
             checked={unCheckedKeys.length === 0 && unCheckedKeys.length !== localColumns.length}
             onChange={(e) => checkedAll(e)}
           >
-            {intl.getMessage('tableToolBar.columnDisplay', '列展示')}
+            列展示
           </Checkbox>
           {checkedReset ? (
             <a onClick={clearClick} className={`${className}-action-rest-button`}>
-              {intl.getMessage('tableToolBar.reset', '重置')}
+             重置
             </a>
           ) : null}
           {props?.extra ? (
@@ -409,7 +405,7 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
       }
     >
       {props.children || (
-        <Tooltip title={intl.getMessage('tableToolBar.columnSetting', '列设置')}>
+        <Tooltip title='列设置'>
           <SettingOutlined />
         </Tooltip>
       )}
