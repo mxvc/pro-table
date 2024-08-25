@@ -23,7 +23,7 @@ type ColumnRenderInterface<T> = {
 };
 
 /**
- * 增加了 icon 的功能 render title
+ * 增加了 icon 的功能 render title, 比如复制， 提示等
  *
  * @param item
  */
@@ -31,9 +31,9 @@ export const renderColumnsTitle = (item: ProColumns<any>) => {
   const { title } = item;
   const ellipsis = typeof item?.ellipsis === 'boolean' ? item?.ellipsis : item?.ellipsis?.showTitle;
   if (title && typeof title === 'function') {
-    return title(item, 'table', <LabelIconTip label={null} tooltip={item.tooltip || item.tip} />);
+    return title(item, 'table', <LabelIconTip label={null} tooltip={item.tooltip } />);
   }
-  return <LabelIconTip label={title} tooltip={item.tooltip || item.tip} ellipsis={ellipsis} />;
+  return <LabelIconTip label={title} tooltip={item.tooltip } ellipsis={ellipsis} />;
 };
 /**
  * 默认的 filter 方法
@@ -69,6 +69,7 @@ export function columnRender<T>({
   const { action, prefixName } = counter;
   const { renderText = (val: any) => val } = columnProps;
 
+  // @ts-ignore
   const renderTextStr = renderText(text, rowData, index, action as ActionType);
   const mode =     'read';
 

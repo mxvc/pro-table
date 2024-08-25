@@ -1,5 +1,5 @@
 import {PlusOutlined} from '@ant-design/icons';
-import {ProTable, TableDropdown} from '@ant-design/pro-table';
+import {ProTable} from '@ant-design/pro-table';
 import {Button} from 'antd';
 import request from 'umi-request';
 
@@ -17,7 +17,6 @@ const columns = [
         dataIndex: 'state',
         filters: true,
         onFilter: true,
-        ellipsis: true,
         valueType: 'select',
         valueEnum: {
             all: {text: '超长'.repeat(50)},
