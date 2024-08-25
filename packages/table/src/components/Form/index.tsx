@@ -17,7 +17,6 @@ type BaseFormProps<T, U> = {
   columns: ProTableProps<T, U, any>['columns'];
   dateFormatter: ProTableProps<T, U, any>['dateFormatter'];
   formRef: ProTableProps<T, U, any>['formRef'];
-  type: ProTableProps<T, U, any>['type'];
 
   form: ProTableProps<T, U, any>['form'];
   search: ProTableProps<T, U, any>['search'];
@@ -101,7 +100,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       columns,
       loading,
       formRef,
-      type,
 
       dateFormatter,
       form,
@@ -111,7 +109,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       columns,
       loading,
       formRef,
-      type,
 
       dateFormatter,
       form,
@@ -121,7 +118,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       columns: next.columns,
       formRef: next.formRef,
       loading: next.loading,
-      type: next.type,
 
       dateFormatter: next.dateFormatter,
       form: next.form,
@@ -138,7 +134,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       columns,
       loading,
       formRef,
-      type,
       action,
 
       dateFormatter,
@@ -158,7 +153,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       <FormRender<U, T>
         submitButtonLoading={loading}
         columns={columns!}
-        type={type}
         ghost={ghost}
         formRef={formRef!}
         onSubmit={this.onSubmit}

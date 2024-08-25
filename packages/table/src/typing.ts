@@ -236,14 +236,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
    */
   tableViewRender?: (props: TableProps<T>, defaultDom: JSX.Element) => JSX.Element | undefined;
 
-  /**
-   * @name table 和搜索表单之间的 dom 渲染
-   *
-   * @example 在table 上方增加一个统计表单
-   *
-   * tableExtraRender={()=> <Statistic title="统计" value={10} />}
-   */
-  tableExtraRender?: (props: ProTableProps<T, U, ValueType>, dataSource: T[]) => React.ReactNode;
+
 
   /** @name 一个获得 dataSource 的方法 */
   request?: (
@@ -352,8 +345,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
   style?: React.CSSProperties;
 
-  /** 支持 ProTable 的类型 */
-  type?: ProSchemaComponentTypes;
+
 
   /** @name 提交表单时触发 */
   onSubmit?: (params: U) => void;

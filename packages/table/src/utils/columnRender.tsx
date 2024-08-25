@@ -83,7 +83,6 @@ export function columnRender<T>({
   index,
   columnEmptyText,
   counter,
-  type,
   subName,
   editableUtils,
 }: ColumnRenderInterface<T>): any {
@@ -110,7 +109,6 @@ export function columnRender<T>({
     },
     counter,
     columnEmptyText,
-    type,
     recordKey,
     mode,
     prefixName,

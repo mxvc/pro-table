@@ -65,7 +65,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     tableClassName,
     action,
     tableColumn: tableColumns,
-    type,
     pagination,
     rowSelection,
     size,
@@ -261,13 +260,8 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
       ref={counter.rootDomRef}
     >
       { searchNode}
-      {/* 渲染一个额外的区域，用于一些自定义 */}
-      {type !== 'form' && props.tableExtraRender && (
-        <div className={`${className}-extra`}>
-          {props.tableExtraRender(props, action.dataSource || [])}
-        </div>
-      )}
-      {type !== 'form' && renderTable()}
+
+      {  renderTable()}
     </div>
   );
 
@@ -315,7 +309,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     beforeSearchSubmit,
     defaultClassName,
     formRef: propRef,
-    type = 'table',
     columnEmptyText = '-',
     rowKey,
     polling,
@@ -418,7 +411,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     effects: [stringify(params), stringify(formSearch), stringify(proFilter), stringify(proSort)],
     debounceTime: props.debounceTime,
     onPageInfoChange: (pageInfo) => {
-      if (type === 'list' || !propsPagination || !fetchData) return;
+      if ( !propsPagination || !fetchData) return;
 
       // 总是触发一下 onChange 和  onShowSizeChange
       // 目前只有 List 和 Table 支持分页, List 有分页的时候打断 Table 的分页
@@ -503,7 +496,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         action.setPageInfo({
           pageSize,
           // 目前只有 List 和 Table 支持分页, List 有分页的时候 还是使用之前的当前页码
-          current: type === 'list' ? current : 1,
+          current:  1,
         });
       },
     };
@@ -600,7 +593,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       columns: propsColumns,
       counter,
       columnEmptyText,
-      type,
       editableUtils,
       rowKey,
       childrenColumnName: props.expandable?.childrenColumnName,
@@ -611,7 +603,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     counter?.sortKeyColumns,
     counter?.columnsMap,
     columnEmptyText,
-    type,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     editableUtils.editableKeys && editableUtils.editableKeys.join(','),
   ]);
@@ -687,7 +678,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   }, [action.loading]);
 
   const searchNode =
-    search === false && type !== 'form' ? null : (
+    search === false ? null : (
       <FormRender<T, U>
         pagination={pagination}
         beforeSearchSubmit={beforeSearchSubmit}
@@ -703,7 +694,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         search={search}
         form={props.form}
         formRef={formRef}
-        type={props.type || 'table'}
+
         dateFormatter={props.dateFormatter}
       />
     );

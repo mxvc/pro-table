@@ -21,7 +21,6 @@ export function genProColumnToColumn<T>(
     columns: ProColumns<T, any>[];
     counter: ReturnType<typeof useContainer>;
     columnEmptyText: ProFieldEmptyText;
-    type: ProSchemaComponentTypes;
     editableUtils: UseEditableUtilType;
   } & Pick<TableProps<T>, 'rowKey' | 'childrenColumnName'>,
 ): (TableColumnType<T> & {
@@ -33,7 +32,6 @@ export function genProColumnToColumn<T>(
     columns,
     counter,
     columnEmptyText,
-    type,
     editableUtils,
     rowKey = 'id',
     childrenColumnName = 'children',
@@ -135,7 +133,6 @@ export function genProColumnToColumn<T>(
             index,
             columnEmptyText,
             counter,
-            type,
             subName: subNameRecord.get(uniqueKey),
             editableUtils,
           };
