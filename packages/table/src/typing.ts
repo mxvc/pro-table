@@ -40,7 +40,6 @@ export type UseFetchDataAction<T = any> = {
   loading: boolean | SpinProps | undefined;
   pageInfo: PageInfo;
   reload: () => Promise<void>;
-  fullScreen?: () => void;
   reset: () => void;
   pollingLoading: boolean;
   setPageInfo: (pageInfo: Partial<PageInfo>) => void;
@@ -394,7 +393,6 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 }  & T;
 
 export type ActionType = ProCoreActionTypeWithoutEdit & {
-  fullScreen?: () => void;
   setPageInfo?: (page: Partial<PageInfo>) => void;
 };
 

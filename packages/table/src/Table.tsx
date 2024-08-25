@@ -220,7 +220,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
   );
 
   // 如果不需要的全屏，ConfigProvider 没有意义
-  if (!options || !options?.fullScreen) {
+  if (!options ) {
     return proTableDom;
   }
   return (
@@ -474,16 +474,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
   /** 绑定 action */
   useActionType(actionRef, action, {
-    fullScreen: () => {
-      if (!counter.rootDomRef?.current || !document.fullscreenEnabled) {
-        return;
-      }
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        counter.rootDomRef?.current.requestFullscreen();
-      }
-    },
     onCleanSelected: () => {
       // 清空选中行
       onCleanSelected();

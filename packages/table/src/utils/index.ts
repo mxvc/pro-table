@@ -54,7 +54,6 @@ export function useActionType<T>(
   ref: React.MutableRefObject<ActionType | undefined>,
   action: UseFetchDataAction<T>,
   props: {
-    fullScreen: () => void;
     onCleanSelected: () => void;
     resetAll: () => void;
   },
@@ -84,7 +83,6 @@ export function useActionType<T>(
       await action?.reset?.();
       await action?.reload();
     },
-    fullScreen: () => props.fullScreen(),
     clearSelected: () => props.onCleanSelected(),
     setPageInfo: (rest) => action.setPageInfo(rest),
   };

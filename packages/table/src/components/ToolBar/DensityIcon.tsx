@@ -16,10 +16,10 @@ const DensityIcon = () => {
             counter.setTableSize?.(key as DensitySize);
           }}
           style={{
-            width: 80,
+            width: 120,
           }}
           items={[
-            { key: 'large', label:  '默认' },
+            { key: 'large', label:  '很大' },
             { key: 'middle', label: '中等' },
             { key: 'small', label: '紧凑' },
           ]}

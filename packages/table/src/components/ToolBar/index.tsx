@@ -13,7 +13,6 @@ import ColumnSetting from '../ColumnSetting';
 import type { ListToolBarProps } from '../ListToolBar';
 import ListToolBar from '../ListToolBar';
 import DensityIcon from './DensityIcon';
-import FullScreenIcon from './FullscreenIcon';
 import './index.less';
 
 export type SettingOptionType = {
@@ -26,7 +25,6 @@ export type SettingOptionType = {
 };
 export type OptionConfig = {
   density?: boolean;
-  fullScreen?: OptionsType;
   reload?: OptionsType;
   setting?: boolean | SettingOptionType;
   search?: (OptionSearchProps & { name?: string }) | boolean;
@@ -73,10 +71,7 @@ function getButtonText() {
       text: '列设置',
       icon: <SettingOutlined />,
     },
-    fullScreen: {
-      text: '全屏',
-      icon: <FullScreenIcon />,
-    },
+
   };
 }
 
@@ -112,13 +107,7 @@ function renderDefaultOption<T>(
           <ColumnSetting {...(options[key] as SettingOptionType)} columns={columns} key={key} />
         );
       }
-      if (key === 'fullScreen') {
-        return (
-          <span key={key} onClick={onClick}>
-            <FullScreenIcon />
-          </span>
-        );
-      }
+
       const optionItem = getButtonText()[key];
       if (optionItem) {
         return (
@@ -151,7 +140,6 @@ function ToolBar<T>({
       density: true,
       setting: true,
       search: false,
-      fullScreen: () => action?.current?.fullScreen?.(),
     };
     if (propsOptions === false) {
       return [];
@@ -159,7 +147,6 @@ function ToolBar<T>({
 
     const options = {
       ...defaultOptions,
-      fullScreen: false,
       ...propsOptions,
     };
 
