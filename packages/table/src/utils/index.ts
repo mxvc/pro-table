@@ -1,4 +1,3 @@
-import type { IntlType } from '@ant-design/pro-provider';
 import type { TablePaginationConfig } from 'antd';
 import type { SortOrder } from 'antd/es/table/interface';
 import type React from 'react';
@@ -13,14 +12,12 @@ import type {
  *
  * @param pagination
  * @param action
- * @param intl
  */
 export function mergePagination<T>(
   pagination: TablePaginationConfig | boolean | undefined,
   pageInfo: UseFetchDataAction<T>['pageInfo'] & {
     setPageInfo: any;
   },
-  intl: IntlType,
 ): TablePaginationConfig | false | undefined {
   if (pagination === false) {
     return false;
@@ -30,10 +27,7 @@ export function mergePagination<T>(
 
   return {
     showTotal: (all, range) =>
-      `${intl.getMessage('pagination.total.range', '第')} ${range[0]}-${range[1]} ${intl.getMessage(
-        'pagination.total.total',
-        '条/总共',
-      )} ${all} ${intl.getMessage('pagination.total.item', '条')}`,
+      `第 ${range[0]}-${range[1]} 条/总共 ${all} 条`,
     total,
     ...(defaultPagination as TablePaginationConfig),
     current: pagination !== true && pagination ? pagination.current ?? current : current,

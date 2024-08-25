@@ -1,5 +1,3 @@
-/* eslint max-classes-per-file: ["error", 3] */
-
 import type { ParamsType } from '@ant-design/pro-provider';
 import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
 import {
@@ -323,9 +321,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     setProSort(sort);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const intl = useIntl();
-
+  useIntl();
   /** 需要初始化 不然默认可能报错 这里取了 defaultCurrent 和 current 为了保证不会重复刷新 */
   const fetchPagination =
     typeof propsPagination === 'object'
@@ -459,9 +455,9 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       delete newPropsPagination.onChange;
       delete newPropsPagination.onShowSizeChange;
     }
-    return mergePagination<T>(newPropsPagination, pageConfig, intl);
+    return mergePagination<T>(newPropsPagination, pageConfig);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propsPagination, action, intl]);
+  }, [propsPagination, action]);
 
   useDeepCompareEffect(() => {
     // request 存在且params不为空，且已经请求过数据才需要设置。
