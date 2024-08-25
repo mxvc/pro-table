@@ -89,7 +89,7 @@ export default () => {
             options={{
                 search:true,
             }}
-
+            pagination={{pageSize:5}}
             rowKey="id"
             toolBarRender={() => [
                 <Button key="button" icon={<PlusOutlined/>} type="primary">

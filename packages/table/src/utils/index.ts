@@ -5,8 +5,6 @@ import type { SortOrder } from 'antd/es/table/interface';
 import type React from 'react';
 import type {
   ActionType,
-  Bordered,
-  BorderedType,
   ProColumns,
   ProColumnType,
   UseFetchDataAction,

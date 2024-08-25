@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -16,15 +15,8 @@ const alias = pkgList.reduce((pre, pkg) => {
   };
 }, {});
 
-console.log(`🌼 alias list \n${chalk.blue(Object.keys(alias).join('\n'))}`);
 
-const tailPkgList = pkgList
-  .map((path) => [join('packages', path, 'src')])
-  .reduce((acc, val) => acc.concat(val), []);
 
-const isProduction = process.env.NODE_ENV === 'production';
-
-const isDeploy = process.env.SITE_DEPLOY === 'TRUE';
 
 export default {
   title: 'ProTable',
@@ -41,12 +33,7 @@ export default {
   ],
 
   alias,
-  resolve: {
-    includes: [...tailPkgList, 'docs'],
-  },
-  locales: [
-    ['zh-CN', '中文'],
-  ],
+
 
   hash: true,
   targets: {
@@ -61,23 +48,8 @@ export default {
     '@root-entry-name': 'variable',
   },
   ignoreMomentLocale: true,
-  menus: {
-    '/components': [
-
-      {
-        title: '数据展示',
-        children: [
-          'table'
-        ],
-      },
-
-    ],
-
-  },
-  ssr: isDeploy ? {} : undefined,
   webpack5: {},
   exportStatic: {},
-  mfsu: !isDeploy ? {} : undefined,
   base:'/pro-components/',
   publicPath:'/pro-components/',
 };
