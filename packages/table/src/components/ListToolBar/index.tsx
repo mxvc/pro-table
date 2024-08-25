@@ -1,6 +1,4 @@
-import { useIntl } from '@ant-design/pro-provider';
 import { LabelIconTip } from '@ant-design/pro-utils';
-import type { TabPaneProps } from 'antd';
 import { ConfigProvider, Input, Space,  Tooltip } from 'antd';
 import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
 import type { SearchProps } from 'antd/lib/input';
@@ -18,16 +16,9 @@ export type ListToolBarSetting = {
   onClick?: (key?: string) => void;
 };
 
-/** Antd 默认直接导出了 rc 组件中的 Tab.Pane 组件。 */
-type TabPane = TabPaneProps & {
-  key?: string;
-};
 
-export type ListToolBarTabs = {
-  activeKey?: string;
-  onChange?: (activeKey: string) => void;
-  items?: TabPane[];
-};
+
+
 
 export type ListToolBarMenu = ListToolBarHeaderMenuProps;
 
@@ -56,8 +47,6 @@ export type ListToolBarProps = {
   multipleLine?: boolean;
   /** 过滤区，通常配合 LightFilter 使用 */
   filter?: React.ReactNode;
-  /** 标签页配置，仅当 `multipleLine` 为 true 时有效 */
-  tabs?: ListToolBarTabs;
   /** 菜单配置 */
   menu?: ListToolBarMenu;
 };
@@ -111,13 +100,12 @@ const ListToolBar: React.FC<ListToolBarProps> = ({
   settings = [],
   menu,
 }) => {
-  const intl = useIntl();
 
   const colSize = useAntdMediaQuery();
 
   const isMobile = colSize === 'sm' || colSize === 'xs';
 
-  const placeholder = intl.getMessage('tableForm.inputPlaceholder', '请输入');
+  const placeholder = '请输入';
 
   /**
    * 获取搜索栏 DOM

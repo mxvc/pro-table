@@ -7,8 +7,8 @@ import {
 } from '@ant-design/pro-provider';
 import type { ProFieldValueType, RowEditableConfig } from '@ant-design/pro-utils';
 import Search from './components/Form';
-import type { ListToolBarProps } from './components/ListToolBar';
-import ListToolBar from './components/ListToolBar';
+
+
 import type { ColumnsState } from './container';
 import ProTable from './Table';
 import type { ActionType, ProColumns, ProColumnType, ProTableProps, RequestData } from './typing';
@@ -26,11 +26,9 @@ export type {
   ProColumns,
   ProColumnType,
   RequestData,
-  ListToolBarProps,
 };
 export {
   ConfigProviderWrap,
-  ListToolBar,
   FieldStatus as TableStatus,
   Search,
   ConfigProvider as IntlProvider,
