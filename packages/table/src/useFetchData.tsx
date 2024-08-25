@@ -35,8 +35,6 @@ const useFetchData = <T extends RequestData<any>>(
   const umountRef = useRef<boolean>(false);
   const { onLoad, manual, polling, onRequestError, debounceTime = 20 } = options || {};
 
-  /** 是否首次加载的指示器 */
-  const manualRequestRef = useRef<boolean>(manual);
 
   /** 轮询的setTime ID 存储 */
   const pollingSetTimeRef = useRef<any>();
@@ -108,11 +106,7 @@ const useFetchData = <T extends RequestData<any>>(
       return [];
     }
 
-    // 需要手动触发的首次请求
-    if (manualRequestRef.current) {
-      manualRequestRef.current = false;
-      return [];
-    }
+
     if (!isPolling) {
       if (typeof tableLoading === 'object') {
         setTableLoading({ ...tableLoading, spinning: true });
@@ -236,9 +230,7 @@ const useFetchData = <T extends RequestData<any>>(
 
   useDeepCompareEffect(() => {
     fetchListDebounce.run(false);
-    if (!manual) {
-      manualRequestRef.current = false;
-    }
+
     return () => {
       fetchListDebounce.cancel();
     };

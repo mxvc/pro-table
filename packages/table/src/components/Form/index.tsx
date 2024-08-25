@@ -21,7 +21,6 @@ type BaseFormProps<T, U> = {
 
   form: ProTableProps<T, U, any>['form'];
   search: ProTableProps<T, U, any>['search'];
-  manualRequest: ProTableProps<T, U, any>['manualRequest'];
 };
 class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: boolean }> {
   /** 查询表单相关的配置 */
@@ -107,7 +106,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       dateFormatter,
       form,
       search,
-      manualRequest,
     } = this.props;
     const diffProps = {
       columns,
@@ -118,7 +116,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       dateFormatter,
       form,
       search,
-      manualRequest,
     };
     return !isDeepEqualReact(diffProps, {
       columns: next.columns,
@@ -129,7 +126,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       dateFormatter: next.dateFormatter,
       form: next.form,
       search: next.search,
-      manualRequest: next.manualRequest,
     });
   };
 
@@ -150,7 +146,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
       search,
       pagination,
       ghost,
-      manualRequest,
     } = this.props;
 
     const pageInfo = pagination
@@ -167,7 +162,6 @@ class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: b
         ghost={ghost}
         formRef={formRef!}
         onSubmit={this.onSubmit}
-        manualRequest={manualRequest}
         onReset={this.onReset}
         dateFormatter={dateFormatter}
         search={search}

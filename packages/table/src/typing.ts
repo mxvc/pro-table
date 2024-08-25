@@ -364,8 +364,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /** @name 空值时显示 */
   columnEmptyText?: ProFieldEmptyText;
 
-  /** @name 是否手动触发请求 */
-  manualRequest?: boolean;
+
 
 
   /**

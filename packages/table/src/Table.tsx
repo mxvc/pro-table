@@ -318,7 +318,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     type = 'table',
     columnEmptyText = '-',
     rowKey,
-    manualRequest,
     polling,
 
     revalidateOnFocus = false
@@ -358,7 +357,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   const [formSearch, setFormSearch] = useMountMergeState<Record<string, any> | undefined>(() => {
     // 如果手动模式，或者 search 不存在的时候设置为 undefined
     // undefined 就不会触发首次加载
-    if (manualRequest || search !== false) {
+    if (search !== false) {
       return undefined;
     }
     return {};
@@ -432,7 +431,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   /** 默认聚焦的时候重新请求数据，这样可以保证数据都是最新的。 */
   useEffect(() => {
     // 手动模式和 request 为空都不生效
-    if (props.manualRequest || !props.request || !revalidateOnFocus || props.form?.ignoreRules)
+    if ( !props.request || !revalidateOnFocus || props.form?.ignoreRules)
       return;
 
     // 聚焦时重新请求事件
@@ -701,7 +700,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         onReset={props.onReset}
         onSubmit={props.onSubmit}
         loading={!!loading}
-        manualRequest={manualRequest}
         search={search}
         form={props.form}
         formRef={formRef}

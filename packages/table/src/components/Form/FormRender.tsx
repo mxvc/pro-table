@@ -101,7 +101,6 @@ export type TableFormItem<T, U = any> = {
   columns: ProColumns<U, any>[];
   formRef: React.MutableRefObject<FormInstance | undefined>;
   submitButtonLoading?: boolean;
-  manualRequest?: boolean;
   bordered?: boolean;
   action: React.MutableRefObject<ActionType | undefined>;
   ghost?: boolean;
@@ -121,7 +120,6 @@ const FormRender = <T, U = any>({
   columns,
   action,
   ghost,
-  manualRequest,
   onReset,
   submitButtonLoading,
   search: searchConfig,
@@ -230,8 +228,7 @@ const FormRender = <T, U = any>({
               current: parseInt(current, 10),
               pageSize: parseInt(pageSize, 10),
             });
-            /** 如果是手动模式不需要提交 */
-            if (manualRequest) return;
+
             submit(values, true);
           }
         }}
