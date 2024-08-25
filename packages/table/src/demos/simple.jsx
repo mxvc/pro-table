@@ -84,12 +84,9 @@ export default () => {
                     params,
                 });
             }}
-            toolbar={{
-                title:'你好',
-
-            }}
+            tooltip='1'
+            headerTitle='你好2'
             options={{
-                fullScreen:true,
                 search:true,
             }}
 

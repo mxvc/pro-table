@@ -5,7 +5,6 @@ import type {
   ProSchema,
   ProSchemaComponentTypes,
   ProTableEditableFnType,
-  RowEditableConfig,
   SearchTransformKeyFn,
 } from '@ant-design/pro-utils';
 import type { SizeType } from 'antd/lib/config-provider/SizeContext';
@@ -18,7 +17,6 @@ import type { ColumnFilterItem, ColumnType, CompareFn, SortOrder } from 'antd/li
 import type React from 'react';
 import type { CSSProperties } from 'react';
 import type { SearchConfig, TableFormItem } from './components/Form/FormRender';
-import type { ListToolBarProps } from './components/ListToolBar';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
 import type { ColumnsState, useContainer } from './container';
@@ -186,10 +184,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
    * @name 列配置能力，支持一个数组
    */
   columns?: ProColumns<T, ValueType>[];
-  /**
-   * @name ListToolBar 的属性
-   */
-  toolbar?: ListToolBarProps;
+
   /**
    * @name 幽灵模式，即是否取消卡片内容区域的 padding 和 卡片的背景颜色。
    */

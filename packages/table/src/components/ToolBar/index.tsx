@@ -207,7 +207,6 @@ function ToolBar<T>({
   return (
     <ListToolBar
       title={headerTitle}
-      tooltip={tooltip }
       search={searchConfig}
       onSearch={onSearch}
       actions={actions}
@@ -226,7 +225,6 @@ export type ToolbarRenderProps<T> = {
   selectedRows: T[];
   selectedRowKeys: React.Key[];
   headerTitle: React.ReactNode;
-  toolbar: ProTableProps<T, any, any>['toolbar'];
   options: ProTableProps<T, any, any>['options'];
   toolBarRender?: ToolBarProps<T>['toolBarRender'];
   actionRef: React.MutableRefObject<ActionType | undefined>;
@@ -265,7 +263,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
       tableColumn,
       options,
       tooltip,
-      toolbar,
       selectedRows,
       selectedRowKeys,
       headerTitle,
@@ -291,7 +288,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
         tableColumn: next.tableColumn,
         options: next.options,
         tooltip: next.tooltip,
-        toolbar: next.toolbar,
         selectedRows: next.selectedRows,
         selectedRowKeys: next.selectedRowKeys,
         headerTitle: next.headerTitle,
@@ -315,7 +311,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
       options,
       searchNode,
       tooltip,
-      toolbar,
       selectedRows,
       selectedRowKeys,
       headerTitle,
@@ -338,10 +333,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
         selectedRows={selectedRows}
         selectedRowKeys={selectedRowKeys}
         toolBarRender={toolBarRender}
-        toolbar={{
-          filter: searchNode,
-          ...toolbar,
-        }}
       />
     );
   };

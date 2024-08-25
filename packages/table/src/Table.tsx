@@ -320,11 +320,10 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     formRef: propRef,
     type = 'table',
     columnEmptyText = '-',
-    toolbar,
     rowKey,
     manualRequest,
     polling,
-    tooltip,
+
     revalidateOnFocus = false
   } = props;
 
@@ -712,7 +711,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         form={props.form}
         formRef={formRef}
         type={props.type || 'table'}
-        cardBordered={props.cardBordered}
         dateFormatter={props.dateFormatter}
       />
     );
@@ -728,8 +726,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         selectedRows={selectedRowsRef.current}
         selectedRowKeys={selectedRowKeys!}
         tableColumn={tableColumn}
-        tooltip={tooltip}
-        toolbar={toolbar}
+
         onFormSearchSubmit={(newValues) => {
           setFormSearch({
             ...formSearch,
