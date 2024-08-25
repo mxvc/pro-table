@@ -85,6 +85,9 @@ export default () => {
                     params,
                 });
             }}
+            toolbar={{
+                title:'你好',
+            }}
             options={{
                 fullScreen:true,
                 search:true

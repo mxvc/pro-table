@@ -1,54 +1,42 @@
-import { LabelIconTip } from '@ant-design/pro-utils';
-import { ConfigProvider, Input, Space,  Tooltip } from 'antd';
-import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
-import type { SearchProps } from 'antd/lib/input';
+/**
+ * 列表工具栏组件（不带业务逻辑），相当于布局文件，内容由ToolBar填充
+ *
+ * 原来的左右判断太复杂，调整为设置title属性，由用户自行设置
+ */
+import {Input, Space, Tooltip} from 'antd';
+import type {LabelTooltipType} from 'antd/lib/form/FormItemLabel';
+import type {SearchProps} from 'antd/lib/input';
 import classNames from 'classnames';
-import React, { useContext, useMemo } from 'react';
+import React, {useMemo} from 'react';
 import useAntdMediaQuery from 'use-media-antd-query';
-import type { ListToolBarHeaderMenuProps } from './HeaderMenu';
-import HeaderMenu from './HeaderMenu';
 import './index.less';
 
 export type ListToolBarSetting = {
-  icon: React.ReactNode;
-  tooltip?: LabelTooltipType | string;
-  key?: string;
-  onClick?: (key?: string) => void;
+    icon: React.ReactNode;
+    tooltip?: LabelTooltipType | string;
+    key?: string;
+    onClick?: (key?: string) => void;
 };
 
-
-
-
-
-export type ListToolBarMenu = ListToolBarHeaderMenuProps;
 
 type SearchPropType = SearchProps | React.ReactNode | boolean;
 type SettingPropType = React.ReactNode | ListToolBarSetting;
 
 export type ListToolBarProps = {
-  prefixCls?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  /** 标题 */
-  title?: React.ReactNode;
-  /** 副标题 */
-  subTitle?: React.ReactNode;
-  /** 标题提示 */
-  tooltip?: string | LabelTooltipType;
-  /** 搜索输入栏相关配置 */
-  search?: SearchPropType;
-  /** 搜索回调 */
-  onSearch?: (keyWords: string) => void;
-  /** 工具栏右侧操作区 */
-  actions?: React.ReactNode[];
-  /** 工作栏右侧设置区 */
-  settings?: SettingPropType[];
-  /** 是否多行展示 */
-  multipleLine?: boolean;
-  /** 过滤区，通常配合 LightFilter 使用 */
-  filter?: React.ReactNode;
-  /** 菜单配置 */
-  menu?: ListToolBarMenu;
+    prefixCls?: string;
+    className?: string;
+    style?: React.CSSProperties;
+    /** 标题 */
+    title?: React.ReactNode;
+
+    /** 搜索输入栏相关配置 */
+    search?: SearchPropType;
+    /** 搜索回调 */
+    onSearch?: (keyWords: string) => void;
+    /** 工具栏右侧操作区 */
+    actions?: React.ReactNode[];
+    /** 工作栏右侧设置区 */
+    settings?: SettingPropType[];
 };
 
 /**
@@ -57,218 +45,152 @@ export type ListToolBarProps = {
  * @param setting 配置项
  */
 function getSettingItem(setting: SettingPropType) {
-  if (React.isValidElement(setting)) {
-    return setting;
-  }
-  if (setting) {
-    const settingConfig: ListToolBarSetting = setting as ListToolBarSetting;
-    const { icon, tooltip, onClick, key } = settingConfig;
-    if (icon && tooltip) {
-      return (
-        <Tooltip title={tooltip as React.ReactNode}>
+    if (React.isValidElement(setting)) {
+        return setting;
+    }
+    if (setting) {
+        const settingConfig: ListToolBarSetting = setting as ListToolBarSetting;
+        const {icon, tooltip, onClick, key} = settingConfig;
+        if (icon && tooltip) {
+            return (
+                <Tooltip title={tooltip as React.ReactNode}>
           <span
-            key={key}
-            onClick={() => {
-              if (onClick) {
-                onClick(key);
-              }
-            }}
+              key={key}
+              onClick={() => {
+                  if (onClick) {
+                      onClick(key);
+                  }
+              }}
           >
             {icon}
           </span>
-        </Tooltip>
-      );
+                </Tooltip>
+            );
+        }
+        return icon;
     }
-    return icon;
-  }
-  return null;
+    return null;
 }
 
 
 const ListToolBar: React.FC<ListToolBarProps> = ({
-  prefixCls: customizePrefixCls,
-  title,
-  subTitle,
-  tooltip,
-  className,
-  style,
-  search,
-  onSearch,
-  multipleLine = false,
-  filter,
-  actions = [],
-  settings = [],
-  menu,
-}) => {
+                                                     title,
+                                                     className,
+                                                     style,
+                                                     search,
+                                                     onSearch,
 
-  const colSize = useAntdMediaQuery();
+                                                     actions = [], // toolbarRender 的内容
+                                                     settings = [],
+                                                 }) => {
+    const colSize = useAntdMediaQuery();
 
-  const isMobile = colSize === 'sm' || colSize === 'xs';
+    const isMobile = colSize === 'sm' || colSize === 'xs';
 
-  const placeholder = '请输入';
+    const placeholder = '请输入';
 
-  /**
-   * 获取搜索栏 DOM
-   *
-   * @param search 搜索框相关配置
-   */
-  const searchNode = useMemo(() => {
-    if (!search) {
-      return null;
-    }
-    if (React.isValidElement(search)) {
-      return search;
-    }
+    /**
+     * 获取搜索栏 DOM
+     *
+     * @param search 搜索框相关配置
+     */
+    const searchNode = useMemo(() => {
+        if (!search) {
+            return null;
+        }
+        if (React.isValidElement(search)) {
+            return search;
+        }
+        return (
+            <Input.Search
+                style={{width: 200}}
+                placeholder={placeholder}
+                {...(search as SearchProps)}
+                onSearch={(...restParams) => {
+                    onSearch?.(restParams?.[0]);
+                    (search as SearchProps).onSearch?.(...restParams);
+                }}
+            />
+        );
+    }, [placeholder, onSearch, search]);
+
+    const prefixCls = 'ant-pro-table-list-toolbar';
+    console.log('prefixCls', prefixCls)
+
+
+    /** 没有 key 的时候帮忙加一下 key 不加的话很烦人 */
+    const actionDom = useMemo(() => {
+
+        if (!Array.isArray(actions)) {
+            return actions;
+        }
+        if (actions.length < 1) {
+            return null;
+        }
+        return (
+            <Space align="center">
+                {actions.map((action, index) => {
+                    if (!React.isValidElement(action)) {
+                        // eslint-disable-next-line react/no-array-index-key
+                        return <React.Fragment key={index}>{action}</React.Fragment>;
+                    }
+                    return React.cloneElement(action, {
+                        // eslint-disable-next-line react/no-array-index-key
+                        key: index,
+                        ...action?.props,
+                    });
+                })}
+            </Space>
+        );
+    }, [actions]);
+
+
+    const leftTitleDom = <div className={`${prefixCls}-left`}>{title}</div>;
+    const rightTitleDom = useMemo(() => {
+        return (
+            <Space
+                className={`${prefixCls}-right`}
+                direction={isMobile ? 'vertical' : 'horizontal'}
+                size={16}
+                align={isMobile ? 'end' : 'center'}
+            >
+                {searchNode ? <div className={`${prefixCls}-search`}>{searchNode}</div> : null}
+                {actionDom}
+                {settings?.length ? (
+                    <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
+                        {settings.map((setting, index) => {
+                            const settingItem = getSettingItem(setting);
+                            return (
+                                // eslint-disable-next-line react/no-array-index-key
+                                <div key={index} className={`${prefixCls}-setting-item`}>
+                                    {settingItem}
+                                </div>
+                            );
+                        })}
+                    </Space>
+                ) : null}
+            </Space>
+        );
+    }, [
+        actionDom,
+        isMobile,
+
+        prefixCls,
+        searchNode,
+        settings,
+    ]);
+
+
     return (
-      <Input.Search
-        style={{ width: 200 }}
-        placeholder={placeholder}
-        {...(search as SearchProps)}
-        onSearch={(...restParams) => {
-          onSearch?.(restParams?.[0]);
-          (search as SearchProps).onSearch?.(...restParams);
-        }}
-      />
-    );
-  }, [placeholder, onSearch, search]);
-
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('pro-table-list-toolbar', customizePrefixCls);
-
-  /** 轻量筛选组件 */
-  const filtersNode = useMemo(() => {
-    if (filter) return <div className={`${prefixCls}-filter`}>{filter}</div>;
-    return null;
-  }, [filter, prefixCls]);
-
-  /** 有没有 title，需要结合多个场景判断 */
-  const hasTitle = useMemo(
-    () => menu || title || subTitle || tooltip,
-    [menu, subTitle, title, tooltip],
-  );
-
-  /** 没有 key 的时候帮忙加一下 key 不加的话很烦人 */
-  const actionDom = useMemo(() => {
-    if (!Array.isArray(actions)) {
-      return actions;
-    }
-    if (actions.length < 1) {
-      return null;
-    }
-    return (
-      <Space align="center">
-        {actions.map((action, index) => {
-          if (!React.isValidElement(action)) {
-            // eslint-disable-next-line react/no-array-index-key
-            return <React.Fragment key={index}>{action}</React.Fragment>;
-          }
-          return React.cloneElement(action, {
-            // eslint-disable-next-line react/no-array-index-key
-            key: index,
-            ...action?.props,
-          });
-        })}
-      </Space>
-    );
-  }, [actions]);
-
-  const hasRight = useMemo(() => {
-    return (
-      (hasTitle && searchNode) || (!multipleLine && filtersNode) || actionDom || settings?.length
-    );
-  }, [actionDom, filtersNode, hasTitle, multipleLine, searchNode, settings?.length]);
-
-  const hasLeft = useMemo(
-    () => tooltip || title || subTitle || menu || (!hasTitle && searchNode),
-    [hasTitle, menu, searchNode, subTitle, title, tooltip],
-  );
-
-  const leftTitleDom = useMemo(() => {
-    // 保留dom是为了占位，不然 right 就变到左边了
-    if (!hasLeft && hasRight) {
-      return <div className={`${prefixCls}-left`} />;
-    }
-
-    // 减少 space 的dom，渲染的时候能节省点性能
-    if (!menu && (hasTitle || !searchNode)) {
-      return (
-        <div className={`${prefixCls}-left`}>
-          <div className={`${prefixCls}-title`}>
-            <LabelIconTip tooltip={tooltip} label={title} subTitle={subTitle} />
-          </div>
+        <div style={style} className={classNames(`${prefixCls}`, className)}>
+            <div className={classNames(`${prefixCls}-container`, {
+                [`${prefixCls}-container-mobile`]: isMobile,
+            })}>
+                {leftTitleDom}
+                {rightTitleDom}
+            </div>
         </div>
-      );
-    }
-    return (
-      <Space className={`${prefixCls}-left`}>
-        {hasTitle && !menu && (
-          <div className={`${prefixCls}-title`}>
-            <LabelIconTip tooltip={tooltip} label={title} subTitle={subTitle} />
-          </div>
-        )}
-        {menu && <HeaderMenu {...menu} prefixCls={prefixCls} />}
-        {!hasTitle && searchNode ? <div className={`${prefixCls}-search`}>{searchNode}</div> : null}
-      </Space>
     );
-  }, [hasLeft, hasRight, hasTitle, menu, prefixCls, searchNode, subTitle, title, tooltip]);
-
-  const rightTitleDom = useMemo(() => {
-    if (!hasRight) return null;
-    return (
-      <Space
-        className={`${prefixCls}-right`}
-        direction={isMobile ? 'vertical' : 'horizontal'}
-        size={16}
-        align={isMobile ? 'end' : 'center'}
-      >
-        {hasTitle && searchNode ? <div className={`${prefixCls}-search`}>{searchNode}</div> : null}
-        {!multipleLine ? filtersNode : null}
-        {actionDom}
-        {settings?.length ? (
-          <Space size={12} align="center" className={`${prefixCls}-setting-items`}>
-            {settings.map((setting, index) => {
-              const settingItem = getSettingItem(setting);
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index} className={`${prefixCls}-setting-item`}>
-                  {settingItem}
-                </div>
-              );
-            })}
-          </Space>
-        ) : null}
-      </Space>
-    );
-  }, [
-    actionDom,
-    isMobile,
-    filtersNode,
-    hasRight,
-    hasTitle,
-    multipleLine,
-    prefixCls,
-    searchNode,
-    settings,
-  ]);
-
-  const titleNode = useMemo(() => {
-    if (!hasRight && !hasLeft) return null;
-    const containerClassName = classNames(`${prefixCls}-container`, {
-      [`${prefixCls}-container-mobile`]: isMobile,
-    });
-    return (
-      <div className={containerClassName}>
-        {leftTitleDom}
-        {rightTitleDom}
-      </div>
-    );
-  }, [hasLeft, hasRight, isMobile, leftTitleDom, prefixCls, rightTitleDom]);
-
-  return (
-    <div style={style} className={classNames(`${prefixCls}`, className)}>
-      {titleNode}
-    </div>
-  );
 };
 
 export default ListToolBar;
