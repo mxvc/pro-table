@@ -2,7 +2,6 @@
 import type {
   ProFieldValueType,
   ProSchemaComponentTypes,
-  ProTableEditableFnType,
   UseEditableUtilType,
 } from '@ant-design/pro-utils';
 import { genCopyable, isNil, LabelIconTip } from '@ant-design/pro-utils';
@@ -40,20 +39,6 @@ export const renderColumnsTitle = (item: ProColumns<any>) => {
   }
   return <LabelIconTip label={title} tooltip={item.tooltip || item.tip} ellipsis={ellipsis} />;
 };
-
-/** 判断可不可编辑 */
-function isEditableCell<T>(
-  text: any,
-  rowData: T,
-  index: number,
-  editable?: ProTableEditableFnType<T> | boolean,
-) {
-  if (typeof editable === 'boolean') {
-    return editable === false;
-  }
-  return editable?.(text, rowData, index) === false;
-}
-
 /**
  * 默认的 filter 方法
  *
@@ -84,15 +69,12 @@ export function columnRender<T>({
   columnEmptyText,
   counter,
   subName,
-  editableUtils,
 }: ColumnRenderInterface<T>): any {
   const { action, prefixName } = counter;
-  const { isEditable, recordKey } = editableUtils.isEditable({ ...rowData, index });
   const { renderText = (val: any) => val } = columnProps;
 
   const renderTextStr = renderText(text, rowData, index, action as ActionType);
-  const mode =
-    isEditable && !isEditableCell(text, rowData, index, columnProps?.editable) ? 'edit' : 'read';
+  const mode =     'read';
 
   const textDom = cellRenderToFromItem<T>({
     text: renderTextStr,
@@ -109,29 +91,13 @@ export function columnRender<T>({
     },
     counter,
     columnEmptyText,
-    recordKey,
     mode,
     prefixName,
-    editableUtils,
   });
 
-  const dom: React.ReactNode =
-    mode === 'edit' ? textDom : genCopyable(textDom, columnProps, renderTextStr);
+  const dom: React.ReactNode =   genCopyable(textDom, columnProps, renderTextStr);
 
-  /** 如果是编辑模式，并且 renderFormItem 存在直接走 renderFormItem */
-  if (mode === 'edit') {
-    if (columnProps.valueType === 'option') {
-      return (
-        <Space>
-          {editableUtils.actionRender({
-            ...rowData,
-            index: columnProps.index || index,
-          })}
-        </Space>
-      );
-    }
-    return dom;
-  }
+
 
   if (!columnProps.render) {
     const isReactRenderNode =
@@ -145,11 +111,9 @@ export function columnRender<T>({
     index,
     {
       ...(action as ActionType),
-      ...editableUtils,
     },
     {
       ...columnProps,
-      isEditable,
       type: 'table',
     },
   );

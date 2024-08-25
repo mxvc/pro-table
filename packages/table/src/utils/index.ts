@@ -1,5 +1,4 @@
 import type { IntlType } from '@ant-design/pro-provider';
-import type { UseEditableUtilType } from '@ant-design/pro-utils';
 import type { TablePaginationConfig } from 'antd';
 import type { SortOrder } from 'antd/es/table/interface';
 import type React from 'react';
@@ -64,12 +63,10 @@ export function useActionType<T>(
     fullScreen: () => void;
     onCleanSelected: () => void;
     resetAll: () => void;
-    editableUtils: UseEditableUtilType;
   },
 ) {
   /** 这里生成action的映射，保证 action 总是使用的最新 只需要渲染一次即可 */
   const userAction: ActionType = {
-    ...props.editableUtils,
     pageInfo: action.pageInfo,
     reload: async (resetPageIndex?: boolean) => {
       // 如果为 true，回到第一页

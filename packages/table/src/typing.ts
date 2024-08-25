@@ -20,6 +20,7 @@ import type { SearchConfig, TableFormItem } from './components/Form/FormRender';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
 import type { ColumnsState, useContainer } from './container';
+import {UseEditableUtilType} from "@ant-design/pro-utils/lib/useEditableArray";
 
 export type PageInfo = {
   pageSize: number;
@@ -151,16 +152,6 @@ export type ProColumnGroupType<RecordType, ValueType> = {
 export type ProColumns<T = any, ValueType = 'text'> =
   | ProColumnGroupType<T, ValueType>
   | ProColumnType<T, ValueType>;
-
-export type BorderedType = 'search' | 'table';
-
-export type Bordered =
-  | boolean
-  | {
-      search?: boolean;
-      table?: boolean;
-    };
-
 export type ColumnsStateType = {
   /**
    * 持久化的类型，支持 localStorage 和 sessionStorage
@@ -385,7 +376,24 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   ErrorBoundary?: any;
 } & Omit<TableProps<T>, 'columns' | 'rowSelection'>;
 
-export type ActionType = ProCoreActionType & {
+
+/**
+ * 替代：ProCoreActionType， 去掉了编辑相关的属性
+ */
+ declare type ProCoreActionTypeWithoutEdit<T = {}> = {
+    /** @name 刷新 */
+    reload: (resetPageIndex?: boolean) => Promise<void>;
+    /** @name 刷新并清空，只清空页面，不包括表单 */
+    reloadAndRest?: () => Promise<void>;
+    /** @name 重置任何输入项，包括表单 */
+    reset?: () => void;
+    /** @name 清空选择 */
+    clearSelected?: () => void;
+    /** @name p页面的信息都在里面 */
+    pageInfo?: PageInfo;
+}  & T;
+
+export type ActionType = ProCoreActionTypeWithoutEdit & {
   fullScreen?: () => void;
   setPageInfo?: (page: Partial<PageInfo>) => void;
 };

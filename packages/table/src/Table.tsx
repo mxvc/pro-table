@@ -3,9 +3,7 @@
 import type { ParamsType } from '@ant-design/pro-provider';
 import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
 import {
-  editableRowByKey,
   omitUndefined,
-  recordKeyToString,
   useDeepCompareEffect,
   useDeepCompareEffectDebounce,
   useEditableArray,
@@ -56,7 +54,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     searchNode: JSX.Element | null;
     onSortChange: (sort: any) => void;
     onFilterChange: (sort: any) => void;
-    editableUtils: any;
     getRowKey: GetRowKey<any>;
   },
 ) {
@@ -78,7 +75,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     onFilterChange,
     options,
     className,
-    editableUtils,
     getRowKey,
     ...rest
   } = props;
@@ -119,44 +115,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     [columns],
   );
 
-  /**
-   * 如果是分页的新增，总是加到最后一行
-   *
-   * @returns
-   */
-  const editableDataSource = (dataSource: any[]): T[] => {
-    const { options: newLineOptions, defaultValue: row } = editableUtils.newLineRecord || {};
-    if (newLineOptions?.parentKey) {
-      const actionProps = {
-        data: dataSource,
-        getRowKey: getRowKey,
-        row: {
-          ...row,
-          map_row_parentKey: recordKeyToString(newLineOptions?.parentKey)?.toString(),
-        },
-        key: newLineOptions?.recordKey,
-        childrenColumnName: props.expandable?.childrenColumnName || 'children',
-      };
 
-      return editableRowByKey(actionProps, newLineOptions.position === 'top' ? 'top' : 'update');
-    }
-
-    if (newLineOptions?.position === 'top') {
-      return [row, ...action.dataSource];
-    }
-    // 如果有分页的功能，我们加到这一页的末尾
-    if (pagination && pagination?.current && pagination?.pageSize) {
-      const newDataSource = [...action.dataSource];
-      if (pagination?.pageSize > newDataSource.length) {
-        newDataSource.push(row);
-        return newDataSource;
-      }
-      newDataSource.splice(pagination?.current * pagination?.pageSize - 1, 0, row);
-      return newDataSource;
-    }
-
-    return [...action.dataSource, row];
-  };
   const getTableProps = () => ({
     ...rest,
     size,
@@ -165,9 +124,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     style: tableStyle,
     columns: columns.map((item) => (item.isExtraColumns ? item.extraColumn : item)),
     loading: action.loading,
-    dataSource: editableUtils.newLineRecord
-      ? editableDataSource(action.dataSource)
-      : action.dataSource,
+    dataSource:action.dataSource,
     pagination,
     onChange: (
       changePagination: TablePaginationConfig,
@@ -303,7 +260,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
     options,
     search,
-    name: isEditorTable,
     onLoadingChange,
     rowSelection: propsRowSelection = false,
     beforeSearchSubmit,
@@ -534,16 +490,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   counter.setAction(actionRef.current);
   counter.propsRef.current = props;
 
-  /** 可编辑行的相关配置 */
-  const editableUtils = useEditableArray<any>({
-    tableName: props.name,
-    getRowKey,
-    childrenColumnName: props.expandable?.childrenColumnName || 'children',
-    dataSource: action.dataSource || [],
-    setDataSource: (data) => {
-      action.setDataSource(data);
-    },
-  });
+
 
   /** 绑定 action */
   useActionType(actionRef, action, {
@@ -578,8 +525,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       // 重置表单
       formRef?.current?.resetFields();
       setFormSearch({});
-    },
-    editableUtils,
+    }
   });
 
   if (propsActionRef) {
@@ -593,7 +539,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       columns: propsColumns,
       counter,
       columnEmptyText,
-      editableUtils,
       rowKey,
       childrenColumnName: props.expandable?.childrenColumnName,
     }).sort(columnSort(counter.columnsMap));
@@ -603,8 +548,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     counter?.sortKeyColumns,
     counter?.columnsMap,
     columnEmptyText,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    editableUtils.editableKeys && editableUtils.editableKeys.join(','),
   ]);
 
   /** Table Column 变化的时候更新一下，这个参数将会用于渲染 */
@@ -727,7 +670,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   return (
     <TableRender
       {...props}
-      name={isEditorTable}
       size={counter.tableSize}
       onSizeChange={counter.setTableSize}
       pagination={pagination}
@@ -739,7 +681,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       toolbarDom={toolbarDom}
       onSortChange={setProSort}
       onFilterChange={setProFilter}
-      editableUtils={editableUtils}
       getRowKey={getRowKey}
     />
   );

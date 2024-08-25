@@ -21,7 +21,6 @@ export function genProColumnToColumn<T>(
     columns: ProColumns<T, any>[];
     counter: ReturnType<typeof useContainer>;
     columnEmptyText: ProFieldEmptyText;
-    editableUtils: UseEditableUtilType;
   } & Pick<TableProps<T>, 'rowKey' | 'childrenColumnName'>,
 ): (TableColumnType<T> & {
   index?: number;
