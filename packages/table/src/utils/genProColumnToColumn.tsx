@@ -5,8 +5,27 @@ import type { TableColumnType, TableProps } from 'antd';
 import { Table } from 'antd';
 import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
-import { columnRender, defaultOnFilter, renderColumnsTitle } from './columnRender';
 import { genColumnKey } from './index';
+import get from 'rc-util/lib/utils/get';
+import {getField} from "./valueType";
+
+
+/**
+ * 默认的 filter 方法
+ *
+ * @param value
+ * @param record
+ * @param dataIndex
+ * @returns
+ */
+const defaultOnFilter = (value: string, record: any, dataIndex: string | string[]) => {
+    const recordElement = Array.isArray(dataIndex)
+        ? get(record, dataIndex as string[])
+        : record[dataIndex];
+    const itemValue = String(recordElement) as string;
+
+    return String(itemValue) === String(value);
+};
 
 /**
  * 转化 columns 到 pro 的格式 主要是 render 方法的自行实现
@@ -29,7 +48,6 @@ export function genProColumnToColumn<T>(
   const {
     columns,
     counter,
-    columnEmptyText,
     rowKey = 'id',
     childrenColumnName = 'children',
   } = params;
@@ -37,6 +55,7 @@ export function genProColumnToColumn<T>(
   const subNameRecord = new Map();
 
   return columns
+    ?.filter((item) => !item.hideInTable)
     ?.map((columnProps, columnsIndex) => {
       const {
         key,
@@ -89,7 +108,6 @@ export function genProColumnToColumn<T>(
         index: columnsIndex,
         key: columnKey,
         ...columnProps,
-        title: renderColumnsTitle(columnProps),
         valueEnum,
         filters:
           filters === true
@@ -107,10 +125,6 @@ export function genProColumnToColumn<T>(
             })
           : undefined,
         render: (text: any, rowData: T, index: number) => {
-          if (typeof rowKey === 'function') {
-            keyName = rowKey(rowData, index);
-          }
-
           let uniqueKey: any;
           if (Reflect.has(rowData as any, keyName)) {
             uniqueKey = rowData[keyName];
@@ -123,24 +137,27 @@ export function genProColumnToColumn<T>(
             });
           }
 
-          const renderProps = {
-            columnProps,
-            text,
-            rowData,
-            index,
-            columnEmptyText,
-            counter,
-            subName: subNameRecord.get(uniqueKey),
-          };
 
-          return columnRender<T>(renderProps);
+
+            if (!columnProps.render) {
+                const field = getField(columnProps.valueType);
+                return field.render(text);
+            }
+
+            // @ts-ignore
+            return columnProps.render(
+                text,
+                rowData,
+                index,
+            );
         },
       };
       return omitUndefinedAndEmptyArr(tempColumns);
-    })
-    ?.filter((item) => !item.hideInTable) as unknown as (TableColumnType<T> & {
+    })     as unknown as (TableColumnType<T> & {
     index?: number;
     isExtraColumns?: boolean;
     extraColumn?: typeof Table.EXPAND_COLUMN | typeof Table.SELECTION_COLUMN;
   })[];
 }
+
+

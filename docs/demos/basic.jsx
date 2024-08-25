@@ -8,9 +8,6 @@ const columns = [
     {
         title: '标题',
         dataIndex: 'title',
-        copyable: true,
-        ellipsis: true,
-        tip: '标题过长会自动收缩',
     },
     {
         title: '状态',
