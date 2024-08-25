@@ -71,7 +71,6 @@ export function columnRender<T>({
 
   // @ts-ignore
   const renderTextStr = renderText(text, rowData, index, action as ActionType);
-  const mode =     'read';
 
   const textDom = cellRenderToFromItem<T>({
     text: renderTextStr,
@@ -88,12 +87,10 @@ export function columnRender<T>({
     },
     counter,
     columnEmptyText,
-    mode,
     prefixName,
   });
 
   const dom: React.ReactNode =   genCopyable(textDom, columnProps, renderTextStr);
-
 
 
   if (!columnProps.render) {
@@ -107,11 +104,6 @@ export function columnRender<T>({
     dom,
     rowData,
     index,
-    action,
-    {
-      ...columnProps,
-      type: 'table',
-    },
   );
 
   // 如果是合并单元格的，直接返回对象

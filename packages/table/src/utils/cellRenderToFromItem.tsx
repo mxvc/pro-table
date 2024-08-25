@@ -26,7 +26,6 @@ type CellRenderFromItemProps<T> = {
   type?: ProSchemaComponentTypes;
   // 行的唯一 key
   recordKey?: React.Key;
-  mode: 'edit' | 'read';
   /**
    * If there is, use EditableTable in the Form
    */
@@ -48,8 +47,7 @@ function cellRenderToFromItem<T>(config: CellRenderFromItemProps<T>): React.Reac
   if (
     (!valueType || ['textarea', 'text'].includes(valueType.toString())) &&
     // valueEnum 存在说明是个select
-    !columnProps?.valueEnum &&
-    config.mode === 'read'
+    !columnProps?.valueEnum
   ) {
     // 如果是''、null、undefined 显示columnEmptyText
     return SHOW_EMPTY_TEXT_LIST.includes(text as any) ? config.columnEmptyText : text;
@@ -74,7 +72,6 @@ function cellRenderToFromItem<T>(config: CellRenderFromItemProps<T>): React.Reac
     params: runFunction(columnProps?.params, rowData, columnProps),
     readonly: columnProps?.readonly,
     text: valueType === 'index' || valueType === 'indexBorder' ? config.index : text,
-    mode: config.mode,
     renderFormItem: undefined,
     valueType: valueType as ProFieldValueType,
     // @ts-ignore
