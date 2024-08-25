@@ -27,7 +27,6 @@ import React, {
 } from 'react';
 import { stringify } from 'use-json-comparison';
 import type { ActionType } from '.';
-import Alert from './components/Alert';
 import FormRender from './components/Form';
 import Toolbar from './components/ToolBar';
 import Container from './container';
@@ -57,7 +56,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     tableColumn: any[];
     toolbarDom: JSX.Element | null;
     searchNode: JSX.Element | null;
-    alertDom: JSX.Element | null;
     isLightFilter: boolean;
     onSortChange: (sort: any) => void;
     onFilterChange: (sort: any) => void;
@@ -80,7 +78,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     searchNode,
     style,
     cardProps,
-    alertDom,
     name,
     onSortChange,
     onFilterChange,
@@ -227,37 +224,14 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     : baseTableDom;
 
   const tableContentDom = useMemo(() => {
-    if (props.editable && !props.name) {
-      return (
-        <>
-          {toolbarDom}
-          {alertDom}
-          <ProForm
-            {...props.editable?.formProps}
-            formRef={props.editable?.formProps?.formRef as any}
-            component={false}
-            form={props.editable?.form}
-            onValuesChange={editableUtils.onValuesChange}
-            key="table"
-            submitter={false}
-            omitNil={false}
-            dateFormatter={props.dateFormatter}
-          >
-            {tableDom}
-          </ProForm>
-        </>
-      );
-    }
-
     return (
       <>
         {toolbarDom}
-        {alertDom}
         {tableDom}
       </>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [alertDom, props.loading, !!props.editable, tableDom, toolbarDom]);
+  }, [ props.loading,  tableDom, toolbarDom]);
 
   /** Table 区域的 dom，为了方便 render */
   const tableAreaDom =
@@ -287,7 +261,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     if (props.tableRender) {
       return props.tableRender(props, tableAreaDom, {
         toolbar: toolbarDom || undefined,
-        alert: alertDom || undefined,
         table: tableDom || undefined,
       });
     }
@@ -361,7 +334,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     onLoadingChange,
     rowSelection: propsRowSelection = false,
     beforeSearchSubmit,
-    tableAlertRender,
     defaultClassName,
     formRef: propRef,
     type = 'table',
@@ -371,8 +343,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     manualRequest,
     polling,
     tooltip,
-    revalidateOnFocus = false,
-    ...rest
+    revalidateOnFocus = false
   } = props;
 
   const className = classNames(defaultClassName, propsClassName);
@@ -595,13 +566,11 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
   /** 可编辑行的相关配置 */
   const editableUtils = useEditableArray<any>({
-    ...props.editable,
     tableName: props.name,
     getRowKey,
     childrenColumnName: props.expandable?.childrenColumnName || 'children',
     dataSource: action.dataSource || [],
     setDataSource: (data) => {
-      props.editable?.onValuesChange?.(undefined as any, data);
       action.setDataSource(data);
     },
   });
@@ -792,18 +761,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       />
     );
 
-  /** 内置的多选操作栏 */
-  const alertDom =
-    propsRowSelection !== false ? (
-      <Alert<T>
-        selectedRowKeys={selectedRowKeys!}
-        selectedRows={selectedRowsRef.current}
-        onCleanSelected={onCleanSelected}
-        alertOptionRender={rest.tableAlertOptionRender}
-        alertInfoRender={tableAlertRender}
-        alwaysShowAlert={propsRowSelection?.alwaysShowAlert}
-      />
-    ) : null;
+
   return (
     <TableRender
       {...props}
@@ -817,7 +775,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       tableColumn={tableColumn}
       isLightFilter={isLightFilter}
       action={action}
-      alertDom={alertDom}
       toolbarDom={toolbarDom}
       onSortChange={setProSort}
       onFilterChange={setProFilter}

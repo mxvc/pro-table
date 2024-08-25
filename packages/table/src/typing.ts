@@ -18,7 +18,6 @@ import type { TableProps } from 'antd/lib/table';
 import type { ColumnFilterItem, ColumnType, CompareFn, SortOrder } from 'antd/lib/table/interface';
 import type React from 'react';
 import type { CSSProperties } from 'react';
-import type { AlertRenderType } from './components/Alert';
 import type { SearchConfig, TableFormItem } from './components/Form/FormRender';
 import type { ListToolBarProps } from './components/ListToolBar';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
@@ -242,7 +241,6 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
     /** 各个区域的 dom */
     domList: {
       toolbar: JSX.Element | undefined;
-      alert: JSX.Element | undefined;
       table: JSX.Element | undefined;
     },
   ) => React.ReactNode;
@@ -358,24 +356,12 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
     | false;
   /** @name 格式化搜索表单提交数据 */
   beforeSearchSubmit?: (params: Partial<U>) => any;
-  /**
-   * 设置或者返回false 即可关闭
-   *
-   * @name 自定义 table 的 alert
-   */
-  tableAlertRender?: AlertRenderType<T>;
-  /**
-   * 设置或者返回false 即可关闭
-   *
-   * @name 自定义 table 的 alert 的操作
-   */
-  tableAlertOptionRender?: AlertRenderType<T>;
+
+
 
   /** @name 选择项配置 */
   rowSelection?:
-    | (TableProps<T>['rowSelection'] & {
-        alwaysShowAlert?: boolean;
-      })
+    | (TableProps<T>['rowSelection'] )
     | false;
 
   style?: React.CSSProperties;
@@ -394,16 +380,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
   /** @name 是否手动触发请求 */
   manualRequest?: boolean;
-  /**
-   * @name 编辑行相关的配置
-   *
-   * @example 支持多行编辑
-   * editable={{type:"multiple"}}
-   *
-   * @example 保存的时候请求后端
-   * editable={{ onSave:async (rows)=>{ await save(rows) } }}
-   */
-  editable?: RowEditableConfig<T>;
+
 
   /**
    * @name 可编辑表格修改数据的改变
