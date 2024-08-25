@@ -1,5 +1,5 @@
 import type { ParamsType } from '@ant-design/pro-provider';
-import { ConfigProviderWrap, useIntl } from '@ant-design/pro-provider';
+import { ConfigProviderWrap } from '@ant-design/pro-provider';
 import {
   omitUndefined,
   useDeepCompareEffect,
@@ -321,7 +321,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     setProSort(sort);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useIntl();
   /** 需要初始化 不然默认可能报错 这里取了 defaultCurrent 和 current 为了保证不会重复刷新 */
   const fetchPagination =
     typeof propsPagination === 'object'
