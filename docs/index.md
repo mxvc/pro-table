@@ -25,3 +25,4 @@ nav:
  - copyable
  - ellipsis 
  - title 不再支持函数
+ - filter 相关的， 可直接使用antd table的

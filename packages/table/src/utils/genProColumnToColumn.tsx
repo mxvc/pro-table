@@ -1,32 +1,11 @@
 ﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
-import { proFieldParsingValueEnumToArray } from '@ant-design/pro-field';
-import { omitBoolean, omitUndefinedAndEmptyArr, runFunction } from '@ant-design/pro-utils';
+import { omitUndefinedAndEmptyArr } from '@ant-design/pro-utils';
 import type { TableColumnType, TableProps } from 'antd';
 import { Table } from 'antd';
 import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
 import { genColumnKey } from './index';
-import get from 'rc-util/lib/utils/get';
 import {getField} from "./valueType";
-
-
-/**
- * 默认的 filter 方法
- *
- * @param value
- * @param record
- * @param dataIndex
- * @returns
- */
-const defaultOnFilter = (value: string, record: any, dataIndex: string | string[]) => {
-    const recordElement = Array.isArray(dataIndex)
-        ? get(record, dataIndex as string[])
-        : record[dataIndex];
-    const itemValue = String(recordElement) as string;
-
-    return String(itemValue) === String(value);
-};
-
 /**
  * 转化 columns 到 pro 的格式 主要是 render 方法的自行实现
  *
@@ -63,8 +42,6 @@ export function genProColumnToColumn<T>(
         valueEnum,
         valueType = 'text',
         children,
-        onFilter,
-        filters = [],
       } = columnProps as ProColumnGroupType<T, any>;
       const columnKey = genColumnKey(key || dataIndex?.toString(), columnsIndex);
       // 这些都没有，说明是普通的表格不需要 pro 管理
@@ -95,27 +72,15 @@ export function genProColumnToColumn<T>(
       }
       const config = counter.columnsMap[columnKey] || { fixed: columnProps.fixed };
 
-      const genOnFilter = () => {
-        if (onFilter === true) {
-          return (value: string, row: T) => defaultOnFilter(value, row, dataIndex as string[]);
-        }
-        return omitBoolean(onFilter);
-      };
 
-      let keyName: React.Key = rowKey as string;
+
+      const keyName: React.Key = rowKey as string;
 
       const tempColumns = {
         index: columnsIndex,
         key: columnKey,
         ...columnProps,
         valueEnum,
-        filters:
-          filters === true
-            ? proFieldParsingValueEnumToArray(
-                runFunction<[undefined]>(valueEnum, undefined),
-              ).filter((valueItem) => valueItem && valueItem.value !== 'all')
-            : filters,
-        onFilter: genOnFilter(),
         fixed: config.fixed,
         width: columnProps.width || (columnProps.fixed ? 200 : undefined),
         children: (columnProps as ProColumnGroupType<T, any>).children
@@ -136,8 +101,6 @@ export function genProColumnToColumn<T>(
               }
             });
           }
-
-
 
             if (!columnProps.render) {
                 const field = getField(columnProps.valueType);
