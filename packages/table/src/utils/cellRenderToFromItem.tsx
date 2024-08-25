@@ -4,7 +4,6 @@ import { FieldContext, ProForm, ProFormDependency, ProFormField } from '@ant-des
 import type {
   ProFieldValueType,
   ProSchemaComponentTypes,
-  UseEditableUtilType,
 } from '@ant-design/pro-utils';
 import {
   getFieldPropsOrFormItemProps,
@@ -52,7 +51,6 @@ type CellRenderFromItemProps<T> = {
   counter: ReturnType<typeof useContainer>;
   proFieldProps: ProFormFieldProps;
   subName: string[];
-  editableUtils: UseEditableUtilType;
 };
 
 const CellRenderFromItem = <T,>(props: CellRenderFromItemProps<T>) => {
@@ -184,7 +182,6 @@ const CellRenderFromItem = <T,>(props: CellRenderFromItemProps<T>) => {
           isEditable: true,
         },
         editableForm as any,
-        props.editableUtils,
       );
       // 如果需要完全自定义可以不要name
       if (columnProps.ignoreFormItem) return <>{fieldDom}</>;
@@ -208,7 +205,6 @@ const CellRenderFromItem = <T,>(props: CellRenderFromItemProps<T>) => {
     recordKey,
     rowData,
     editableForm,
-    props.editableUtils,
   ]);
 
   if (formItemName.length === 0) return null;

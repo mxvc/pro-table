@@ -1,8 +1,6 @@
 ﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
 import type {
   ProFieldValueType,
-  ProSchemaComponentTypes,
-  UseEditableUtilType,
 } from '@ant-design/pro-utils';
 import { genCopyable, isNil, LabelIconTip } from '@ant-design/pro-utils';
 import { Space } from 'antd';
@@ -20,9 +18,7 @@ type ColumnRenderInterface<T> = {
   rowData: T;
   index: number;
   columnEmptyText?: ProFieldEmptyText;
-  type: ProSchemaComponentTypes;
   counter: ReturnType<typeof useContainer>;
-  editableUtils: UseEditableUtilType;
   subName: string[];
 };
 
@@ -105,13 +101,12 @@ export function columnRender<T>({
     return !isNil(dom) && isReactRenderNode ? dom : null;
   }
 
+  // @ts-ignore
   const renderDom = columnProps.render(
     dom,
     rowData,
     index,
-    {
-      ...(action as ActionType),
-    },
+    action,
     {
       ...columnProps,
       type: 'table',
