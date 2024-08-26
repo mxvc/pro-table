@@ -1,7 +1,7 @@
 /**
  * 工具栏
  */
-import { ReloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { ReloadOutlined } from '@ant-design/icons';
 import type { TableColumnType } from 'antd';
 import { Tooltip } from 'antd';
 import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
@@ -204,7 +204,7 @@ export type ToolbarRenderProps<T> = {
 };
 
 /** 这里负责与table交互，并且减少 render次数 */
-class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
+export default class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
   onSearch = (keyword: string) => {
     const { options, onFormSearchSubmit, actionRef } = this.props;
 
@@ -264,4 +264,4 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
   };
 }
 
-export default ToolbarRender;
+
