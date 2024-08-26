@@ -28,7 +28,7 @@ import useFetchData from './useFetchData';
 import { genColumnKey, mergePagination, parseDefaultColumnConfig, useActionType } from './utils';
 import { columnSort } from './utils/columnSort';
 import { genProColumnToColumn } from './utils/genProColumnToColumn';
-import {omitUndefined, useDeepCompareEffect, useDeepCompareEffectDebounce, useMountMergeState} from "./utils/proutils";
+import {omitUndefined, useDeepCompareEffect, useDeepCompareEffectDebounce, useMountMergeState} from "./proutils";
 
 function TableRender<T extends Record<string, any>, U, ValueType>(
   props: ProTableProps<T, U, ValueType> & {
