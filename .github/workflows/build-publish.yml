@@ -26,6 +26,6 @@ jobs:
       - name: publish to npm
         run: |
           cd packages/table
-          npm publish -r --access public
+          npm publish  --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
