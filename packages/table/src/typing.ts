@@ -1,6 +1,4 @@
-﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
-import type { LightWrapperProps } from '@ant-design/pro-form';
-import type {
+﻿import type {
   ProSchema,
   ProSchemaComponentTypes,
   ProTableEditableFnType,
@@ -17,7 +15,7 @@ import type React from 'react';
 import type { CSSProperties } from 'react';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
-import type { ColumnsState, useContainer } from './container';
+import type { ColumnsState } from './container';
 import {FormInstance} from "antd";
 
 export type PageInfo = {
@@ -43,16 +41,7 @@ export type UseFetchDataAction<T = any> = {
   setPageInfo: (pageInfo: Partial<PageInfo>) => void;
 };
 
-/** 转化列的定义 */
-export type ColumnRenderInterface<T> = {
-  item: ProColumns<T>;
-  text: any;
-  row: T;
-  index: number;
-  columnEmptyText?: ProFieldEmptyText;
-  type: ProSchemaComponentTypes;
-  counter: ReturnType<typeof useContainer>;
-};
+
 
 export type TableRowSelection = TableProps<any>['rowSelection'];
 
@@ -136,10 +125,8 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
 
   },
   ProSchemaComponentTypes,
-  ValueType,
-  {
-    lightProps?: LightWrapperProps;
-  }
+  ValueType
+
 >;
 
 export type ProColumnGroupType<RecordType, ValueType> = {
