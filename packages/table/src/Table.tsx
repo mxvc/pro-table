@@ -429,7 +429,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         }
 
         // 通过request的时候清空数据，然后刷新不然可能会导致 pageSize 没有数据多
-        if (request) action.setDataSource([]);
+        action.setDataSource([]);
         action.setPageInfo({
           pageSize,
           // 目前只有 List 和 Table 支持分页, List 有分页的时候 还是使用之前的当前页码
@@ -437,7 +437,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         });
       },
     };
-    if (request && newPropsPagination) {
+    if (newPropsPagination) {
       delete newPropsPagination.onChange;
       delete newPropsPagination.onShowSizeChange;
     }
@@ -447,7 +447,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
   useDeepCompareEffect(() => {
     // request 存在且params不为空，且已经请求过数据才需要设置。
-    if (props.request && params && action.dataSource && action?.pageInfo?.current !== 1) {
+    if (params && action.dataSource && action?.pageInfo?.current !== 1) {
       action.setPageInfo({
         current: 1,
       });

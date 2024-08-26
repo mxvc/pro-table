@@ -220,7 +220,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
 
   /** @name 一个获得 dataSource 的方法 */
-  request?: (
+  request: (
     params: U & {
       pageSize?: number;
       current?: number;
