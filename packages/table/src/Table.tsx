@@ -1,9 +1,3 @@
-import {
-  omitUndefined,
-  useDeepCompareEffect,
-  useDeepCompareEffectDebounce,
-  useMountMergeState,
-} from '@ant-design/pro-utils';
 import type { FormInstance, TablePaginationConfig } from 'antd';
 import { ConfigProvider, Table, Card } from 'antd';
 import type { GetRowKey, SortOrder, TableCurrentDataSource } from 'antd/lib/table/interface';
@@ -34,6 +28,7 @@ import useFetchData from './useFetchData';
 import { genColumnKey, mergePagination, parseDefaultColumnConfig, useActionType } from './utils';
 import { columnSort } from './utils/columnSort';
 import { genProColumnToColumn } from './utils/genProColumnToColumn';
+import {omitUndefined, useDeepCompareEffect, useDeepCompareEffectDebounce, useMountMergeState} from "./utils/proutils";
 
 function TableRender<T extends Record<string, any>, U, ValueType>(
   props: ProTableProps<T, U, ValueType> & {

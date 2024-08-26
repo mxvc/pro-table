@@ -1,11 +1,11 @@
-﻿import { omitUndefinedAndEmptyArr } from '@ant-design/pro-utils';
-import type { TableColumnType, TableProps } from 'antd';
+﻿import type { TableColumnType, TableProps } from 'antd';
 import { Table } from 'antd';
 import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
 import { genColumnKey } from './index';
 import { getField } from './valueType';
 import React from 'react';
+import {omitUndefinedAndEmptyArr} from "./proutils";
 /**
  * 转化 columns 到 pro 的格式 主要是 render 方法的自行实现
  *

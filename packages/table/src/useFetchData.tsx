@@ -1,12 +1,8 @@
-import {
-  useDebounceFn,
-  useDeepCompareEffect,
-  useMountMergeState,
-  usePrevious,
-} from '@ant-design/pro-utils';
+
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { PageInfo, RequestData, UseFetchDataAction, UseFetchProps } from './typing';
 import { postDataPipeline } from './utils';
+import {useDebounceFn, useDeepCompareEffect, useMountMergeState, usePrevious} from "./utils/proutils";
 
 /**
  * 组合用户的配置和默认值

@@ -2,7 +2,6 @@
  * 工具栏
  */
 import { ReloadOutlined, SettingOutlined } from '@ant-design/icons';
-import { isDeepEqualReact, omitUndefined } from '@ant-design/pro-utils';
 import type { TableColumnType } from 'antd';
 import { Tooltip } from 'antd';
 import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
@@ -14,6 +13,7 @@ import type { ListToolBarProps } from '../ListToolBar';
 import ListToolBar from '../ListToolBar';
 import DensityIcon from './DensityIcon';
 import './index.less';
+import {isDeepEqualReact, omitUndefined} from "../../utils/proutils";
 
 export type SettingOptionType = {
   draggable?: boolean;

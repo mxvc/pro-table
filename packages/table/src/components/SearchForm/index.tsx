@@ -1,4 +1,3 @@
-import { omitUndefined } from '@ant-design/pro-utils';
 import type { FormInstance, TablePaginationConfig } from 'antd';
 import { Button, Card, Form, Space } from 'antd';
 import omit from 'omit.js';
@@ -6,6 +5,7 @@ import React from 'react';
 import type { ActionType, ProTableProps } from '../../typing';
 import './index.less';
 import {getField} from "../../utils/valueType";
+import {omitUndefined} from "../../utils/proutils";
 
 type BaseFormProps<T, U> = {
   pagination?: TablePaginationConfig | false;
