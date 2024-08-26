@@ -1,5 +1,5 @@
 ﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
-import type { LightWrapperProps, ProFormProps, QueryFilterProps } from '@ant-design/pro-form';
+import type { LightWrapperProps } from '@ant-design/pro-form';
 import type {
   ProSchema,
   ProSchemaComponentTypes,
@@ -168,6 +168,12 @@ export type ColumnsStateType = {
 
 /** ProTable 的类型定义 继承自 antd 的 Table */
 export type ProTableProps<T, U, ValueType = 'text'> = {
+
+    /**
+     * 是否显示搜索框
+     */
+   search?: boolean;
+
   /**
    * @name 列配置能力，支持一个数组
    */
@@ -305,7 +311,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
    * 基本配置与 antd Form 相同, 但是劫持了 form onFinish 的配置
    *
    */
-  form?:FormInstance;
+  form?:FormInstance<any>;
 
   /** @name 格式化搜索表单提交数据 */
   beforeSearchSubmit?: (params: Partial<U>) => any;

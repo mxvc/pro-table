@@ -17,8 +17,8 @@ type BaseFormProps<T, U> = {
     onFormSearchSubmit: (params: U) => void;
     columns: ProTableProps<T, U, any>['columns'];
 
-    form: FormInstance;
-    formRef: React.Ref<FormInstance>
+    form: FormInstance<any>;
+    formRef: React.Ref<any>
 };
 export default class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: boolean }> {
     /** 查询表单相关的配置 */
