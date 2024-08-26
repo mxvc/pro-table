@@ -10,6 +10,12 @@ nav:
 
 <code src="./demos/basic.jsx"   background="#f5f5f5" />
 
+
+
+<API src="../packages/table/src/index.tsx"></API>
+
+
+
 ## 去掉的功能
 
 为了减少心智负担，将很多功能去掉。大原则是配置式改为用户自定义 ReactNode， 减少开发过程中对文档的查看
@@ -27,3 +33,4 @@ nav:
 - ellipsis
 - title 不再支持函数
 - filter 相关的， 可直接使用 antd table 的
+

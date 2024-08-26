@@ -1,20 +1,18 @@
 import { Input } from 'antd';
 import React from 'react';
 
-const valueTypeMap = {};
+const valueTypeMap = new Map();
 
-// @ts-ignore
-export function registerField(key, field) {
-  valueTypeMap[key] = field;
+export function registerField(key: string, field:any) {
+  valueTypeMap.set(key,field)
 }
 
 export function getValueTypeMap() {
   return valueTypeMap;
 }
 
-// @ts-ignore
-export function getField(key) {
-  return valueTypeMap[key] || valueTypeMap.text;
+export function getField(key: string) {
+  return valueTypeMap.get(key) || valueTypeMap.get('text')
 }
 
 export declare type FieldProps = {

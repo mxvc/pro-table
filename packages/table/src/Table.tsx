@@ -1,5 +1,4 @@
 import type { ParamsType } from '@ant-design/pro-provider';
-import { ConfigProviderWrap } from '@ant-design/pro-provider';
 import {
   omitUndefined,
   useDeepCompareEffect,
@@ -650,12 +649,10 @@ const ProviderWarp = <
 
   return (
     <Container.Provider initialState={props}>
-      <ConfigProviderWrap>
         <ProTable<DataType, Params, ValueType>
           defaultClassName={getPrefixCls('pro-table')}
           {...props}
         />
-      </ConfigProviderWrap>
     </Container.Provider>
   );
 };
