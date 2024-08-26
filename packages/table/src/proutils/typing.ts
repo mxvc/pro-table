@@ -76,7 +76,6 @@ export type SearchTransformKeyFn = (
   namePath: string,
   allValues: any,
 ) => string | Record<string, any>;
-export type SearchConvertKeyFn = (value: any, field: NamePath) => string | Record<string, any>;
 
 export type ProTableEditableFnType<T> = (value: any, record: T, index: number) => boolean;
 

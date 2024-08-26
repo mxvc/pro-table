@@ -1,10 +1,4 @@
-﻿import type {
-  ProSchema,
-  ProSchemaComponentTypes,
-  ProTableEditableFnType,
-  SearchTransformKeyFn,
-} from '@ant-design/pro-utils';
-import type { SizeType } from 'antd/lib/config-provider/SizeContext';
+﻿import type { SizeType } from 'antd/lib/config-provider/SizeContext';
 import type { LabelTooltipType } from 'antd/lib/form/FormItemLabel';
 import type { NamePath } from 'antd/lib/form/interface';
 import type { SearchProps } from 'antd/lib/input';
@@ -17,6 +11,7 @@ import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
 import type { ColumnsState } from './container';
 import type { FormInstance } from 'antd';
+import {ProSchema, ProSchemaComponentTypes} from "./proutils/typing";
 
 export type PageInfo = {
   pageSize: number;
@@ -81,17 +76,7 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     /** @deprecated Use `search=false` instead 在查询表单中隐藏 */
     hideInSearch?: boolean;
 
-    /** 在查询表单中隐藏 */
-    search?:
-      | false
-      | {
-          /**
-           * Transform: (value: any) => ({ startTime: value[0], endTime: value[1] }),
-           *
-           * @name 转化值的key, 一般用于事件区间的转化
-           */
-          transform: SearchTransformKeyFn;
-        };
+
 
     /** @name 在 table 中隐藏 */
     hideInTable?: boolean;
@@ -111,8 +96,7 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     /** @name Form 的排序 */
     order?: number;
 
-    /** @name 可编辑表格是否可编辑 */
-    editable?: boolean | ProTableEditableFnType<T>;
+
 
     /** @private */
     listKey?: string;

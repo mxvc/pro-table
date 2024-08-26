@@ -1,4 +1,3 @@
-import type { SketchPickerProps } from '@chenshuai2144/sketch-color';
 import type {
   AvatarProps,
   CascaderProps,
@@ -60,13 +59,7 @@ export interface ProFieldValueTypeWithFieldProps {
   image: ImageProps | InputProps;
   cascader: CascaderProps<any>;
   treeSelect: TreeSelectProps;
-  color: SketchPickerProps & {
-    value?: string;
-    popoverProps?: PopoverProps;
-    mode?: 'read' | 'edit';
-    onChange?: (color: string) => void;
-    colors?: string[];
-  };
+
 }
 
 /**
