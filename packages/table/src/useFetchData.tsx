@@ -1,10 +1,8 @@
 import {
-  runFunction,
   useDebounceFn,
   useDeepCompareEffect,
   useMountMergeState,
   usePrevious,
-  useRefFunction,
 } from '@ant-design/pro-utils';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { PageInfo, RequestData, UseFetchDataAction, UseFetchProps } from './typing';
@@ -55,7 +53,7 @@ const useFetchData = <T extends RequestData<any>>(
       onChange: options?.onPageInfoChange,
     },
   );
-  const setPageInfo = useRefFunction((changePageInfo: PageInfo) => {
+  const setPageInfo = (changePageInfo: PageInfo) => {
     if (
       changePageInfo.current !== pageInfo.current ||
       changePageInfo.pageSize !== pageInfo.pageSize ||
@@ -63,7 +61,7 @@ const useFetchData = <T extends RequestData<any>>(
     ) {
       setPageInfoState(changePageInfo);
     }
-  });
+  };
 
   const [pollingLoading, setPollingLoading] = useMountMergeState(false);
 
@@ -91,14 +89,14 @@ const useFetchData = <T extends RequestData<any>>(
    *
    * https://github.com/ant-design/pro-components/issues/4390
    */
-  const requestFinally = useRefFunction(() => {
+  const requestFinally = () => {
     if (typeof tableLoading === 'object') {
       setTableLoading({ ...tableLoading, spinning: false });
     } else {
       setTableLoading(false);
     }
     setPollingLoading(false);
-  });
+  }
   /** 请求数据 */
   const fetchList = async (isPolling: boolean) => {
     if ((tableLoading && typeof tableLoading === 'boolean') || requesting.current || !getData) {
@@ -156,18 +154,6 @@ const useFetchData = <T extends RequestData<any>>(
     }
     const msg = await fetchList(isPolling);
 
-    // 把判断要不要轮询的逻辑放到后面来这样可以保证数据是根据当前来
-    // 放到请求前面会导致数据是上一次的
-    const needPolling = runFunction(polling, msg);
-
-    // 如果需要轮询，搞个一段时间后执行
-    // 如果解除了挂载，删除一下
-    if (needPolling && !umountRef.current) {
-      pollingSetTimeRef.current = setTimeout(() => {
-        fetchListDebounce.run(needPolling);
-        // 这里判断最小要2000ms，不然一直loading
-      }, Math.max(needPolling, 2000));
-    }
     return msg;
   }, debounceTime || 10);
 

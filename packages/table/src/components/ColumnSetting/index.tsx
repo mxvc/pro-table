@@ -4,7 +4,6 @@ import {
   VerticalAlignMiddleOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { runFunction, useRefFunction } from '@ant-design/pro-utils';
 import type { TableColumnType } from 'antd';
 import { Checkbox, ConfigProvider, Popover, Space, Tooltip, Tree } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/lib/checkbox';
@@ -15,7 +14,7 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import type { ColumnsState } from '../../container';
 import Container from '../../container';
 import type { ProColumns } from '../../typing';
-import { genColumnKey } from '../../utils/index';
+import { genColumnKey } from '../../utils';
 import './index.less';
 
 type ColumnSettingProps<T = any> = {
@@ -62,7 +61,7 @@ const ToolTipIcon: React.FC<{
 const CheckboxListItem: React.FC<{
   columnKey: string | number;
   className?: string;
-  title?: React.ReactNode;
+  title?: React.ReactNode ;
   fixed?: boolean | 'left' | 'right';
   isLeaf?: boolean;
 }> = ({ columnKey, isLeaf, title, className, fixed }) => {
@@ -135,7 +134,7 @@ const CheckboxList: React.FC<{
   }, [columnsMap, list, show]);
 
   /** 移动到指定的位置 */
-  const move = useRefFunction((id: React.Key, targetId: React.Key, dropPosition: number) => {
+  const move = (id: React.Key, targetId: React.Key, dropPosition: number) => {
     const newMap = { ...columnsMap };
     const newColumns = [...sortKeyColumns];
     const findIndex = newColumns.findIndex((columnKey) => columnKey === id);
@@ -157,10 +156,11 @@ const CheckboxList: React.FC<{
     // 更新数组
     setColumnsMap(newMap);
     setSortKeyColumns(newColumns);
-  });
+  };
 
   /** 选中反选功能 */
-  const onCheckTree = useRefFunction((e) => {
+      // @ts-ignore
+  const onCheckTree = (e) => {
     const columnKey = e.node.key;
     const newSetting = { ...columnsMap[columnKey] };
 
@@ -170,7 +170,7 @@ const CheckboxList: React.FC<{
       ...columnsMap,
       [columnKey]: newSetting,
     });
-  });
+  }
 
   if (!show) {
     return null;
@@ -194,11 +194,12 @@ const CheckboxList: React.FC<{
       showLine={false}
       titleRender={(_node) => {
         const node = { ..._node, children: undefined };
+        let title = node.title as React.ReactNode;
         return (
           <CheckboxListItem
             className={className}
             {...node}
-            title={runFunction(node.title, node)}
+            title={title  }
             columnKey={node.key}
           />
         );
@@ -307,7 +308,7 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
    *
    * @param show
    */
-  const setAllSelectAction = useRefFunction((show: boolean = true) => {
+  const setAllSelectAction = (show: boolean = true) => {
     const columnKeyMap = {};
     const loopColumns = (columns: any) => {
       columns.forEach(({ key, fixed, index, children }: any) => {
@@ -325,22 +326,22 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
     };
     loopColumns(localColumns);
     setColumnsMap(columnKeyMap);
-  });
+  }
 
   /** 全选和反选 */
-  const checkedAll = useRefFunction((e: CheckboxChangeEvent) => {
+  const checkedAll = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
       setAllSelectAction();
     } else {
       setAllSelectAction(false);
     }
-  });
+  };
 
   /** 重置项目 */
-  const clearClick = useRefFunction(() => {
+  const clearClick = () => {
     clearPersistenceStorage?.();
     setColumnsMap(columnRef.current);
-  });
+  }
 
   // 未选中的 key 列表
   const unCheckedKeys = Object.values(columnsMap).filter((value) => !value || value.show === false);

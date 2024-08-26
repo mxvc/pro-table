@@ -296,7 +296,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
   style?: React.CSSProperties;
 
-  /** @name 提交表单时触发 */
+  /**  提交表单时触发 */
   onSubmit?: (params: U) => void;
 
   /** @name 重置表单时触发 */
