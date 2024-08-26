@@ -11,6 +11,11 @@ nav:
 <code src="./demos/basic.jsx"   background="#f5f5f5" />
 
 
+## 安装
+在css文件中引入
+```css
+@import '~@tmgg/pro-table/dist/table.css';
+```
 
 <API src="../packages/table/src/Table.tsx"></API>
 
