@@ -1,4 +1,3 @@
-import type { ParamsType } from '@ant-design/pro-provider';
 import {
   omitUndefined,
   useDeepCompareEffect,
@@ -229,6 +228,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
 }
 
 const emptyObj = {};
+ declare type ParamsType = Record<string, any>;
 const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType>(
   props: ProTableProps<T, U, ValueType> & {
     defaultClassName: string;

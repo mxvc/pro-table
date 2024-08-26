@@ -34,7 +34,6 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
-    "@ant-design/pro-provider": "1.10.0",
     "@ant-design/pro-utils": "1.45.3",
     "@babel/runtime": "^7.18.0",
     "antd": "^4.20.0 ",
