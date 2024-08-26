@@ -5,7 +5,7 @@ import React from 'react';
 import type { ActionType, ProTableProps } from '../../typing';
 import './index.less';
 import {getField} from "../../utils/valueType";
-import {omitUndefined} from "../../utils/proutils";
+import {omitUndefined} from "../../proutils";
 
 type BaseFormProps<T, U> = {
   pagination?: TablePaginationConfig | false;

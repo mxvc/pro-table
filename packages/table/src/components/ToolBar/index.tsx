@@ -13,7 +13,7 @@ import type { ListToolBarProps } from '../ListToolBar';
 import ListToolBar from '../ListToolBar';
 import DensityIcon from './DensityIcon';
 import './index.less';
-import {omitUndefined} from "../../utils/proutils";
+import {omitUndefined} from "../../proutils";
 
 export type SettingOptionType = {
   draggable?: boolean;
