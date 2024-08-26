@@ -46,6 +46,6 @@ export default {
   ignoreMomentLocale: true,
   webpack5: {},
   exportStatic: {},
-  base: '/pro-components/',
-  publicPath: '/pro-components/',
+  base: '/pro-table/',
+  publicPath: '/pro-table/',
 };
