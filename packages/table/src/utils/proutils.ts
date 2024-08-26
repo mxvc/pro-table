@@ -1,5 +1,4 @@
 import React, {DependencyList, Dispatch, useCallback, useEffect, useRef} from "react";
-import {useRefFunction} from "@ant-design/pro-utils";
 import useMergedState from "rc-util/lib/hooks/useMergedState";
 
 export const omitUndefined = <T extends {}>(obj: T): T => {
@@ -207,4 +206,12 @@ export const usePrevious = <T>(state: T): T | undefined => {
     });
 
     return ref.current;
+};
+
+export const useRefFunction = <T extends (...args: any) => any>(reFunction: T) => {
+    const ref = useRef<any>(null);
+    ref.current = reFunction;
+    return useCallback((...rest: Parameters<T>): ReturnType<T> => {
+        return ref.current?.(...(rest as any));
+    }, []);
 };
