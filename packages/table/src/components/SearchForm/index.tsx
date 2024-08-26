@@ -5,7 +5,7 @@ import omit from 'omit.js';
 import React from 'react';
 import type { ActionType, ProTableProps } from '../../typing';
 import './index.less';
-import { getField } from '@ant-design/pro-table';
+import {getField} from "../../utils/valueType";
 
 type BaseFormProps<T, U> = {
   pagination?: TablePaginationConfig | false;
