@@ -6,6 +6,7 @@ import React from 'react';
 import type {ActionType, ProTableProps} from '../../typing';
 import './index.less';
 import {getField} from "@ant-design/pro-table";
+import {FormProps} from "rc-field-form/lib/Form";
 
 type BaseFormProps<T, U> = {
     pagination?: TablePaginationConfig | false;
@@ -17,8 +18,8 @@ type BaseFormProps<T, U> = {
     onFormSearchSubmit: (params: U) => void;
     columns: ProTableProps<T, U, any>['columns'];
 
-    form: FormInstance<any>;
-    formRef: React.Ref<any>
+    form?: FormInstance;
+    formRef: React.RefObject<any>
 };
 export default class FormSearch<T, U> extends React.Component<BaseFormProps<T, U> & { ghost?: boolean }> {
     /** 查询表单相关的配置 */

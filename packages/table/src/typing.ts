@@ -249,7 +249,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /**
    * @name 操作自带的 form
    */
-  formRef?: React.Ref<FormInstance>
+  formRef?: React.RefObject<FormInstance>
   /**
    * @name 渲染操作栏
    */
@@ -298,7 +298,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
    * 基本配置与 antd Form 相同, 但是劫持了 form onFinish 的配置
    *
    */
-  form?:FormInstance<any>;
+  form?:FormInstance;
 
   /** @name 格式化搜索表单提交数据 */
   beforeSearchSubmit?: (params: Partial<U>) => any;
@@ -320,8 +320,6 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /** @name 重置表单时触发 */
   onReset?: () => void;
 
-  /** @name 空值时显示 */
-  columnEmptyText?: ProFieldEmptyText;
 
 
 

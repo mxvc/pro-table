@@ -6,7 +6,7 @@ import {
   useDeepCompareEffectDebounce,
   useMountMergeState,
 } from '@ant-design/pro-utils';
-import type { TablePaginationConfig } from 'antd';
+import type {FormInstance, TablePaginationConfig} from 'antd';
 import { ConfigProvider, Table,Card } from 'antd';
 import type { GetRowKey, SortOrder, TableCurrentDataSource } from 'antd/lib/table/interface';
 import classNames from 'classnames';
@@ -240,7 +240,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     defaultClassName: string;
   },
 ) => {
-  const {
+  let {
     request,
     className: propsClassName,
     params = emptyObj,
@@ -261,8 +261,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     rowSelection: propsRowSelection = false,
     beforeSearchSubmit,
     defaultClassName,
-    formRef: propRef,
-    columnEmptyText = '-',
+    formRef,
     rowKey,
     polling,
 
@@ -274,8 +273,10 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   /** 通用的来操作子节点的工具类 */
   const actionRef = useRef<ActionType>();
 
-  const defaultFormRef = useRef();
-  const formRef = propRef || defaultFormRef;
+  if(formRef == null){
+    formRef = useRef<FormInstance>() as React.RefObject<FormInstance>;
+  }
+
 
   useImperativeHandle(propsActionRef, () => actionRef.current);
 
@@ -508,7 +509,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     return genProColumnToColumn<T>({
       columns: propsColumns,
       counter,
-      columnEmptyText,
       rowKey,
       childrenColumnName: props.expandable?.childrenColumnName,
     }).sort(columnSort(counter.columnsMap));
@@ -517,7 +517,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     propsColumns,
     counter?.sortKeyColumns,
     counter?.columnsMap,
-    columnEmptyText,
   ]);
 
   /** Table Column 变化的时候更新一下，这个参数将会用于渲染 */
@@ -604,7 +603,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         onReset={props.onReset}
         onSubmit={props.onSubmit}
         loading={!!loading}
-        search={search}
         form={props.form}
         formRef={formRef}
       />
