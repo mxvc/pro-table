@@ -11,13 +11,11 @@ import type { ColumnsState } from './container';
 import ProTable from './Table';
 import type { ActionType, ProColumns, ProColumnType, ProTableProps, RequestData } from './typing';
 
-type ProColumnsValueType = ProFieldValueType;
 
 export type {
   ProTableProps,
   ActionType,
   ColumnsState,
-  ProColumnsValueType,
   ProColumns,
   ProColumnType,
   RequestData,

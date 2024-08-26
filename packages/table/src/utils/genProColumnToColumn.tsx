@@ -1,5 +1,4 @@
-﻿import type { ProFieldEmptyText } from '@ant-design/pro-field';
-import { omitUndefinedAndEmptyArr } from '@ant-design/pro-utils';
+﻿import { omitUndefinedAndEmptyArr } from '@ant-design/pro-utils';
 import type { TableColumnType, TableProps } from 'antd';
 import { Table } from 'antd';
 import type { useContainer } from '../container';
@@ -18,7 +17,6 @@ export function genProColumnToColumn<T>(
   params: {
     columns: ProColumns<T, any>[];
     counter: ReturnType<typeof useContainer>;
-    columnEmptyText: ProFieldEmptyText;
   } & Pick<TableProps<T>, 'rowKey' | 'childrenColumnName'>,
 ): (TableColumnType<T> & {
   index?: number;
