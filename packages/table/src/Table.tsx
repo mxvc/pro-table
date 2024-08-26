@@ -19,7 +19,7 @@ import React, {
 } from 'react';
 import { stringify } from 'use-json-comparison';
 import type { ActionType } from '.';
-import FormSearch from './components/Form';
+import FormSearch from './components/SearchForm';
 import Toolbar from './components/ToolBar';
 import Container from './container';
 import './index.less';

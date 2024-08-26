@@ -12,7 +12,7 @@ nav:
 
 
 
-<API src="../packages/table/src/index.tsx"></API>
+<API src="../packages/table/src/Table.tsx"></API>
 
 
 
