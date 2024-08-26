@@ -1,13 +1,12 @@
 import {Input} from "antd";
+import React from "react";
 
-export declare type FieldPropsType = {
-    render: ((text: any) => JSX.Element) ;
-    renderFormItem: ((text: any, props: {value?: any;  onChange?: (...rest: any[]) => void; fieldProps?: any}) => JSX.Element) ;
-};
+
 
 const valueTypeMap = {}
 
-export function registerField(key: string, field: FieldPropsType){
+// @ts-ignore
+export function registerField(key, field){
     valueTypeMap[key] = field
 }
 
@@ -16,17 +15,29 @@ export function getValueTypeMap(){
 }
 
 // @ts-ignore
-export function getField(key): FieldPropsType{
-    return valueTypeMap[key] || valueTypeMap['default']
+export function getField(key){
+    return valueTypeMap[key] || valueTypeMap['text']
 }
 
 
-const defaultField: FieldPropsType = {
-    render: (text) => text,
-    renderFormItem: (text, props) => {
-        return <Input value={text} onChange={props.onChange} {...props.fieldProps} />
+export declare type FieldProps =  {
+    mode: 'read'| 'edit'
+    value: any
+    onChange: any
+    fieldProps:any
+}
+
+class FieldText extends React.Component<FieldProps, any>{
+
+    render() {
+        if(this.props.mode == 'read'){
+            return this.props.value;
+        }
+
+        return <Input value={this.props.value} onChange={this.props.onChange} {...this.props.fieldProps} />
     }
 }
 
-registerField('text', defaultField)
-registerField('default', defaultField)
+
+
+registerField('text', FieldText)

@@ -6,6 +6,7 @@ import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
 import { genColumnKey } from './index';
 import {getField} from "./valueType";
+import React from "react";
 /**
  * 转化 columns 到 pro 的格式 主要是 render 方法的自行实现
  *
@@ -103,8 +104,9 @@ export function genProColumnToColumn<T>(
           }
 
             if (!columnProps.render) {
-                const field = getField(columnProps.valueType);
-                return field.render(text);
+                const Field = getField(columnProps.valueType);
+                // @ts-ignore
+                return <Field value={text} mode='read'></Field>
             }
 
             // @ts-ignore

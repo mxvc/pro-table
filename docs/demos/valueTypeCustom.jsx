@@ -1,41 +1,29 @@
 import {ProTable} from '@ant-design/pro-table';
-import {ProProvider} from '@ant-design/pro-provider'
 import request from 'umi-request';
 import {Checkbox} from "antd";
 import React from "react";
+import {registerField} from "@ant-design/pro-table";
 
 
 class CheckboxFormField extends React.Component {
 
     render() {
+        if(this.props.mode === 'read'){
+           return this.props.value ? '是' : '否'
+        }
 
         return <Checkbox indeterminate={this.props.value == null} checked={this.props.value} onChange={e => this.props.onChange(e.target.checked)}></Checkbox>
     }
 }
 
+registerField('boolean', CheckboxFormField)
+
 
 export default () => {
     return (
         <>
-            <ProProvider.Provider value={{
-                valueTypeMap: {
-                    boolean: {
-                        render: (text) => text ? '是' : '否',
-                        renderFormItem: (text, props) => (
-                             <CheckboxFormField {...props.fieldProps}/>
-                        ),
-                    }
-                }
-            }}>
-
-
                 <ProTable
                     columns={[
-                        {
-                            title: '标题',
-                            dataIndex: 'title',
-                        },
-
 
                         {
                             title: 'locked',
@@ -53,9 +41,6 @@ export default () => {
                     pagination={{pageSize: 5}}
                     rowKey="id"
                 />
-
-
-            </ProProvider.Provider>
 
 
         </>

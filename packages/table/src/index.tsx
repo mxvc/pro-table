@@ -28,6 +28,7 @@ export {
   ConfigProvider,
   ConfigConsumer,
   ProTable,
-};
 
+};
+export * from './utils/valueType'
 export default ProTable;
