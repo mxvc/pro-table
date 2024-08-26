@@ -68,28 +68,13 @@ const CheckboxListItem: React.FC<{
 }> = ({ columnKey, isLeaf, title, className, fixed }) => {
   const dom = (
     <span className={`${className}-list-item-option`}>
-      <ToolTipIcon
-        columnKey={columnKey}
-        fixed="left"
-        title='固定在列首'
-        show={fixed !== 'left'}
-      >
+      <ToolTipIcon columnKey={columnKey} fixed="left" title="固定在列首" show={fixed !== 'left'}>
         <VerticalAlignTopOutlined />
       </ToolTipIcon>
-      <ToolTipIcon
-        columnKey={columnKey}
-        fixed={undefined}
-        title='不固定'
-        show={!!fixed}
-      >
+      <ToolTipIcon columnKey={columnKey} fixed={undefined} title="不固定" show={!!fixed}>
         <VerticalAlignMiddleOutlined />
       </ToolTipIcon>
-      <ToolTipIcon
-        columnKey={columnKey}
-        fixed="right"
-        title='固定在列尾'
-        show={fixed !== 'right'}
-      >
+      <ToolTipIcon columnKey={columnKey} fixed="right" title="固定在列尾" show={fixed !== 'right'}>
         <VerticalAlignBottomOutlined />
       </ToolTipIcon>
     </span>
@@ -267,7 +252,7 @@ const GroupCheckboxList: React.FC<{
       })}
     >
       <CheckboxList
-        title='固定在左侧'
+        title="固定在左侧"
         list={leftList}
         draggable={draggable}
         checkable={checkable}
@@ -279,13 +264,13 @@ const GroupCheckboxList: React.FC<{
         list={list}
         draggable={draggable}
         checkable={checkable}
-        title='不固定'
+        title="不固定"
         showTitle={showLeft || showRight}
         className={className}
         listHeight={listsHeight}
       />
       <CheckboxList
-        title='固定在右侧'
+        title="固定在右侧"
         list={rightList}
         draggable={draggable}
         checkable={checkable}
@@ -379,7 +364,7 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
           </Checkbox>
           {checkedReset ? (
             <a onClick={clearClick} className={`${className}-action-rest-button`}>
-             重置
+              重置
             </a>
           ) : null}
           {props?.extra ? (
@@ -403,7 +388,7 @@ function ColumnSetting<T>(props: ColumnSettingProps<T>) {
       }
     >
       {props.children || (
-        <Tooltip title='列设置'>
+        <Tooltip title="列设置">
           <SettingOutlined />
         </Tooltip>
       )}

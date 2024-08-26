@@ -9,5 +9,5 @@ nav:
 ---
 
 ### locked 字段使用自定义的 boolean
-<code src="./demos/valueTypeCustom.jsx"   background="#f5f5f5" />
 
+<code src="./demos/valueTypeCustom.jsx"   background="#f5f5f5" />

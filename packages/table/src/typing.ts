@@ -16,7 +16,7 @@ import type { CSSProperties } from 'react';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
 import type { ColumnsState } from './container';
-import {FormInstance} from "antd";
+import type { FormInstance } from 'antd';
 
 export type PageInfo = {
   pageSize: number;
@@ -40,8 +40,6 @@ export type UseFetchDataAction<T = any> = {
   pollingLoading: boolean;
   setPageInfo: (pageInfo: Partial<PageInfo>) => void;
 };
-
-
 
 export type TableRowSelection = TableProps<any>['rowSelection'];
 
@@ -121,12 +119,9 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
 
     /** @name 只读 */
     readonly?: boolean;
-
-
   },
   ProSchemaComponentTypes,
   ValueType
-
 >;
 
 export type ProColumnGroupType<RecordType, ValueType> = {
@@ -155,11 +150,10 @@ export type ColumnsStateType = {
 
 /** ProTable 的类型定义 继承自 antd 的 Table */
 export type ProTableProps<T, U, ValueType = 'text'> = {
-
-    /**
-     * 是否显示搜索框
-     */
-   search?: boolean;
+  /**
+   * 是否显示搜索框
+   */
+  search?: boolean;
 
   /**
    * @name 列配置能力，支持一个数组
@@ -197,8 +191,6 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
 
   onSizeChange?: (size: DensitySize) => void;
 
-
-
   /**
    * @name 渲染 table
    */
@@ -216,8 +208,6 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
    * @name 渲染 table 视图，用于定制 ProList，不推荐直接使用
    */
   tableViewRender?: (props: TableProps<T>, defaultDom: JSX.Element) => JSX.Element | undefined;
-
-
 
   /** @name 一个获得 dataSource 的方法 */
   request: (
@@ -249,7 +239,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /**
    * @name 操作自带的 form
    */
-  formRef?: React.RefObject<FormInstance>
+  formRef?: React.RefObject<FormInstance>;
   /**
    * @name 渲染操作栏
    */
@@ -292,37 +282,25 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /** @name 操作栏配置 */
   options?: OptionConfig | false;
 
-
-
   /**
    * 基本配置与 antd Form 相同, 但是劫持了 form onFinish 的配置
    *
    */
-  form?:FormInstance;
+  form?: FormInstance;
 
   /** @name 格式化搜索表单提交数据 */
   beforeSearchSubmit?: (params: Partial<U>) => any;
 
-
-
   /** @name 选择项配置 */
-  rowSelection?:
-    | (TableProps<T>['rowSelection'] )
-    | false;
+  rowSelection?: TableProps<T>['rowSelection'] | false;
 
   style?: React.CSSProperties;
-
-
 
   /** @name 提交表单时触发 */
   onSubmit?: (params: U) => void;
 
   /** @name 重置表单时触发 */
   onReset?: () => void;
-
-
-
-
 
   /**
    * @name 可编辑表格修改数据的改变
@@ -350,22 +328,21 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   ErrorBoundary?: any;
 } & Omit<TableProps<T>, 'columns' | 'rowSelection'>;
 
-
 /**
  * 替代：ProCoreActionType， 去掉了编辑相关的属性
  */
- declare type ProCoreActionTypeWithoutEdit<T = {}> = {
-    /** @name 刷新 */
-    reload: (resetPageIndex?: boolean) => Promise<void>;
-    /** @name 刷新并清空，只清空页面，不包括表单 */
-    reloadAndRest?: () => Promise<void>;
-    /** @name 重置任何输入项，包括表单 */
-    reset?: () => void;
-    /** @name 清空选择 */
-    clearSelected?: () => void;
-    /** @name p页面的信息都在里面 */
-    pageInfo?: PageInfo;
-}  & T;
+declare type ProCoreActionTypeWithoutEdit<T = {}> = {
+  /** @name 刷新 */
+  reload: (resetPageIndex?: boolean) => Promise<void>;
+  /** @name 刷新并清空，只清空页面，不包括表单 */
+  reloadAndRest?: () => Promise<void>;
+  /** @name 重置任何输入项，包括表单 */
+  reset?: () => void;
+  /** @name 清空选择 */
+  clearSelected?: () => void;
+  /** @name p页面的信息都在里面 */
+  pageInfo?: PageInfo;
+} & T;
 
 export type ActionType = ProCoreActionTypeWithoutEdit & {
   setPageInfo?: (page: Partial<PageInfo>) => void;

@@ -1,12 +1,7 @@
 import type { TablePaginationConfig } from 'antd';
 import type { SortOrder } from 'antd/es/table/interface';
 import type React from 'react';
-import type {
-  ActionType,
-  ProColumns,
-  ProColumnType,
-  UseFetchDataAction,
-} from '../typing';
+import type { ActionType, ProColumns, ProColumnType, UseFetchDataAction } from '../typing';
 /**
  * 合并用户 props 和 预设的 props
  *
@@ -26,8 +21,7 @@ export function mergePagination<T>(
   const defaultPagination: TablePaginationConfig = typeof pagination === 'object' ? pagination : {};
 
   return {
-    showTotal: (all, range) =>
-      `第 ${range[0]}-${range[1]} 条/总共 ${all} 条`,
+    showTotal: (all, range) => `第 ${range[0]}-${range[1]} 条/总共 ${all} 条`,
     total,
     ...(defaultPagination as TablePaginationConfig),
     current: pagination !== true && pagination ? pagination.current ?? current : current,

@@ -4,8 +4,8 @@ import { Table } from 'antd';
 import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
 import { genColumnKey } from './index';
-import {getField} from "./valueType";
-import React from "react";
+import { getField } from './valueType';
+import React from 'react';
 /**
  * 转化 columns 到 pro 的格式 主要是 render 方法的自行实现
  *
@@ -23,12 +23,7 @@ export function genProColumnToColumn<T>(
   isExtraColumns?: boolean;
   extraColumn?: typeof Table.EXPAND_COLUMN | typeof Table.SELECTION_COLUMN;
 })[] {
-  const {
-    columns,
-    counter,
-    rowKey = 'id',
-    childrenColumnName = 'children',
-  } = params;
+  const { columns, counter, rowKey = 'id', childrenColumnName = 'children' } = params;
 
   const subNameRecord = new Map();
 
@@ -71,8 +66,6 @@ export function genProColumnToColumn<T>(
       }
       const config = counter.columnsMap[columnKey] || { fixed: columnProps.fixed };
 
-
-
       const keyName: React.Key = rowKey as string;
 
       const tempColumns = {
@@ -101,26 +94,20 @@ export function genProColumnToColumn<T>(
             });
           }
 
-            if (!columnProps.render) {
-                const Field = getField(columnProps.valueType);
-                // @ts-ignore
-                return <Field value={text} mode='read'></Field>
-            }
-
+          if (!columnProps.render) {
+            const Field = getField(columnProps.valueType);
             // @ts-ignore
-            return columnProps.render(
-                text,
-                rowData,
-                index,
-            );
+            return <Field value={text} mode="read" />;
+          }
+
+          // @ts-ignore
+          return columnProps.render(text, rowData, index);
         },
       };
       return omitUndefinedAndEmptyArr(tempColumns);
-    })     as unknown as (TableColumnType<T> & {
+    }) as unknown as (TableColumnType<T> & {
     index?: number;
     isExtraColumns?: boolean;
     extraColumn?: typeof Table.EXPAND_COLUMN | typeof Table.SELECTION_COLUMN;
   })[];
 }
-
-

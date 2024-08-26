@@ -71,7 +71,6 @@ function getButtonText() {
       text: '列设置',
       icon: <SettingOutlined />,
     },
-
   };
 }
 
@@ -83,12 +82,12 @@ function getButtonText() {
  */
 function renderDefaultOption<T>(
   options: OptionConfig,
-  defaultOptions: OptionConfig ,
+  defaultOptions: OptionConfig,
   actions: React.MutableRefObject<ActionType | undefined>,
   columns: TableColumnType<T>[],
 ) {
   return Object.keys(options)
-     .filter((item) => item)
+    .filter((item) => item)
     .map((key) => {
       const value = options[key];
       if (!value) {
@@ -158,7 +157,7 @@ function ToolBar<T>({
       action,
       columns,
     );
-  }, [action, columns,  propsOptions]);
+  }, [action, columns, propsOptions]);
   // 操作列表
   const actions = toolBarRender
     ? toolBarRender(action?.current, { selectedRowKeys, selectedRows })

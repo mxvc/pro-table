@@ -15,9 +15,6 @@ const alias = pkgList.reduce((pre, pkg) => {
   };
 }, {});
 
-
-
-
 export default {
   title: 'ProTable',
   mode: 'site',
@@ -34,7 +31,6 @@ export default {
 
   alias,
 
-
   hash: true,
   targets: {
     chrome: 80,
@@ -50,6 +46,6 @@ export default {
   ignoreMomentLocale: true,
   webpack5: {},
   exportStatic: {},
-  base:'/pro-components/',
-  publicPath:'/pro-components/',
+  base: '/pro-components/',
+  publicPath: '/pro-components/',
 };

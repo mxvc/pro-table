@@ -19,7 +19,7 @@ const DensityIcon = () => {
             width: 120,
           }}
           items={[
-            { key: 'large', label:  '很大' },
+            { key: 'large', label: '很大' },
             { key: 'middle', label: '中等' },
             { key: 'small', label: '紧凑' },
           ]}
@@ -27,7 +27,7 @@ const DensityIcon = () => {
       }
       trigger={['click']}
     >
-      <Tooltip title='表格密度'>
+      <Tooltip title="表格密度">
         <ColumnHeightOutlined />
       </Tooltip>
     </Dropdown>

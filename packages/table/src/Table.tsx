@@ -6,8 +6,8 @@ import {
   useDeepCompareEffectDebounce,
   useMountMergeState,
 } from '@ant-design/pro-utils';
-import type {FormInstance, TablePaginationConfig} from 'antd';
-import { ConfigProvider, Table,Card } from 'antd';
+import type { FormInstance, TablePaginationConfig } from 'antd';
+import { ConfigProvider, Table, Card } from 'antd';
 import type { GetRowKey, SortOrder, TableCurrentDataSource } from 'antd/lib/table/interface';
 import classNames from 'classnames';
 import React, {
@@ -33,13 +33,7 @@ import type {
   UseFetchDataAction,
 } from './typing';
 import useFetchData from './useFetchData';
-import {
-  genColumnKey,
-
-  mergePagination,
-  parseDefaultColumnConfig,
-  useActionType,
-} from './utils';
+import { genColumnKey, mergePagination, parseDefaultColumnConfig, useActionType } from './utils';
 import { columnSort } from './utils/columnSort';
 import { genProColumnToColumn } from './utils/genProColumnToColumn';
 
@@ -112,7 +106,6 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     [columns],
   );
 
-
   const getTableProps = () => ({
     ...rest,
     size,
@@ -121,7 +114,7 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
     style: tableStyle,
     columns: columns.map((item) => (item.isExtraColumns ? item.extraColumn : item)),
     loading: action.loading,
-    dataSource:action.dataSource,
+    dataSource: action.dataSource,
     pagination,
     onChange: (
       changePagination: TablePaginationConfig,
@@ -178,22 +171,24 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
       </>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ props.loading,  tableDom, toolbarDom]);
+  }, [props.loading, tableDom, toolbarDom]);
 
   /** Table 区域的 dom，为了方便 render */
-  const tableAreaDom =     <Card
-        bodyStyle={
-          toolbarDom
-            ? {
-                paddingTop: 0,
-              }
-            : {
-                padding: 0,
-              }
-        }
-      >
-        {tableContentDom}
-      </Card>
+  const tableAreaDom = (
+    <Card
+      bodyStyle={
+        toolbarDom
+          ? {
+              paddingTop: 0,
+            }
+          : {
+              padding: 0,
+            }
+      }
+    >
+      {tableContentDom}
+    </Card>
+  );
 
   const renderTable = () => {
     if (props.tableRender) {
@@ -213,14 +208,14 @@ function TableRender<T extends Record<string, any>, U, ValueType>(
       style={style}
       ref={counter.rootDomRef}
     >
-      { searchNode}
+      {searchNode}
 
-      {  renderTable()}
+      {renderTable()}
     </div>
   );
 
   // 如果不需要的全屏，ConfigProvider 没有意义
-  if (!options ) {
+  if (!options) {
     return proTableDom;
   }
   return (
@@ -240,7 +235,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     defaultClassName: string;
   },
 ) => {
-  let {
+  const {
     request,
     className: propsClassName,
     params = emptyObj,
@@ -261,22 +256,22 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     rowSelection: propsRowSelection = false,
     beforeSearchSubmit,
     defaultClassName,
-    formRef,
+
     rowKey,
     polling,
 
-    revalidateOnFocus = false
+    revalidateOnFocus = false,
   } = props;
+  let { formRef } = props;
+  const defaultRef = useRef<FormInstance>() as React.RefObject<FormInstance>;
+  if (formRef == null) {
+    formRef = defaultRef;
+  }
 
   const className = classNames(defaultClassName, propsClassName);
 
   /** 通用的来操作子节点的工具类 */
   const actionRef = useRef<ActionType>();
-
-  if(formRef == null){
-    formRef = useRef<FormInstance>() as React.RefObject<FormInstance>;
-  }
-
 
   useImperativeHandle(propsActionRef, () => actionRef.current);
 
@@ -362,7 +357,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     effects: [stringify(params), stringify(formSearch), stringify(proFilter), stringify(proSort)],
     debounceTime: props.debounceTime,
     onPageInfoChange: (pageInfo) => {
-      if ( !propsPagination || !fetchData) return;
+      if (!propsPagination || !fetchData) return;
 
       // 总是触发一下 onChange 和  onShowSizeChange
       // 目前只有 List 和 Table 支持分页, List 有分页的时候打断 Table 的分页
@@ -371,8 +366,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     },
   });
   // ============================ END ============================
-
-
 
   /** SelectedRowKeys受控处理selectRows */
   const preserveRecordsRef = React.useRef(new Map<any, T>());
@@ -433,7 +426,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         action.setPageInfo({
           pageSize,
           // 目前只有 List 和 Table 支持分页, List 有分页的时候 还是使用之前的当前页码
-          current:  1,
+          current: 1,
         });
       },
     };
@@ -471,8 +464,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   counter.setAction(actionRef.current);
   counter.propsRef.current = props;
 
-
-
   /** 绑定 action */
   useActionType(actionRef, action, {
     onCleanSelected: () => {
@@ -496,7 +487,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       // 重置表单
       formRef?.current?.resetFields();
       setFormSearch({});
-    }
+    },
   });
 
   if (propsActionRef) {
@@ -513,11 +504,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       childrenColumnName: props.expandable?.childrenColumnName,
     }).sort(columnSort(counter.columnsMap));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    propsColumns,
-    counter?.sortKeyColumns,
-    counter?.columnsMap,
-  ]);
+  }, [propsColumns, counter?.sortKeyColumns, counter?.columnsMap]);
 
   /** Table Column 变化的时候更新一下，这个参数将会用于渲染 */
   useDeepCompareEffectDebounce(
@@ -560,7 +547,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
       setSelectedRowsAndKey(keys, rows);
     },
   };
-
 
   const onFormSearchSubmit = <Y extends ParamsType>(values: Y): any => {
     // 判断search.onSearch返回值决定是否更新formSearch
@@ -613,13 +599,10 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     toolBarRender === false ? null : (
       <Toolbar<T>
         headerTitle={headerTitle}
-        hideToolbar={
-          options === false && !headerTitle && !toolBarRender && !toolbar
-        }
+        hideToolbar={options === false && !headerTitle && !toolBarRender && !toolbar}
         selectedRows={selectedRowsRef.current}
         selectedRowKeys={selectedRowKeys!}
         tableColumn={tableColumn}
-
         onFormSearchSubmit={(newValues) => {
           setFormSearch({
             ...formSearch,
@@ -631,7 +614,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         toolBarRender={toolBarRender}
       />
     );
-
 
   return (
     <TableRender
@@ -669,10 +651,10 @@ const ProviderWarp = <
   return (
     <Container.Provider initialState={props}>
       <ConfigProviderWrap>
-          <ProTable<DataType, Params, ValueType>
-            defaultClassName={getPrefixCls('pro-table')}
-            {...props}
-          />
+        <ProTable<DataType, Params, ValueType>
+          defaultClassName={getPrefixCls('pro-table')}
+          {...props}
+        />
       </ConfigProviderWrap>
     </Container.Provider>
   );

@@ -35,7 +35,6 @@ const useFetchData = <T extends RequestData<any>>(
   const umountRef = useRef<boolean>(false);
   const { onLoad, manual, polling, onRequestError, debounceTime = 20 } = options || {};
 
-
   /** 轮询的setTime ID 存储 */
   const pollingSetTimeRef = useRef<any>();
   const [list, setList] = useMountMergeState<any[] | undefined>(defaultData, {
@@ -105,7 +104,6 @@ const useFetchData = <T extends RequestData<any>>(
     if ((tableLoading && typeof tableLoading === 'boolean') || requesting.current || !getData) {
       return [];
     }
-
 
     if (!isPolling) {
       if (typeof tableLoading === 'object') {
