@@ -13,7 +13,7 @@ import type { ListToolBarProps } from '../ListToolBar';
 import ListToolBar from '../ListToolBar';
 import DensityIcon from './DensityIcon';
 import './index.less';
-import {isDeepEqualReact, omitUndefined} from "../../utils/proutils";
+import {omitUndefined} from "../../utils/proutils";
 
 export type SettingOptionType = {
   draggable?: boolean;
@@ -57,22 +57,7 @@ export type ToolBarProps<T = unknown> = {
   columns: TableColumnType<T>[];
 };
 
-function getButtonText() {
-  return {
-    reload: {
-      text: '刷新',
-      icon: <ReloadOutlined />,
-    },
-    density: {
-      text: '表格密度',
-      icon: <DensityIcon />,
-    },
-    setting: {
-      text: '列设置',
-      icon: <SettingOutlined />,
-    },
-  };
-}
+
 
 /**
  * 渲染默认的 工具栏
@@ -107,14 +92,18 @@ function renderDefaultOption<T>(
         );
       }
 
-      const optionItem = getButtonText()[key];
-      if (optionItem) {
-        return (
-          <span key={key} onClick={onClick}>
-            <Tooltip title={optionItem.text}>{optionItem.icon}</Tooltip>
+      if (key === 'reload'){
+      return  <span key={key} onClick={onClick}>
+            <Tooltip title='刷新'><ReloadOutlined /></Tooltip>
           </span>
-        );
       }
+
+      if(key === 'density'){
+        return  <span key={key} onClick={onClick}>
+            <Tooltip title='表格密度'> <DensityIcon /></Tooltip>
+          </span>
+      }
+
       return null;
     })
     .filter((item) => item);
@@ -240,49 +229,6 @@ class ToolbarRender<T> extends React.Component<ToolbarRenderProps<T>> {
         [name]: keyword,
       }),
     );
-  };
-  isEquals = (next: ToolbarRenderProps<T>) => {
-    const {
-      hideToolbar,
-      tableColumn,
-      options,
-      tooltip,
-      selectedRows,
-      selectedRowKeys,
-      headerTitle,
-      actionRef,
-      toolBarRender,
-    } = this.props;
-
-    return isDeepEqualReact(
-      {
-        hideToolbar,
-        tableColumn,
-        options,
-        tooltip,
-        toolbar,
-        selectedRows,
-        selectedRowKeys,
-        headerTitle,
-        actionRef,
-        toolBarRender,
-      },
-      {
-        hideToolbar: next.hideToolbar,
-        tableColumn: next.tableColumn,
-        options: next.options,
-        tooltip: next.tooltip,
-        selectedRows: next.selectedRows,
-        selectedRowKeys: next.selectedRowKeys,
-        headerTitle: next.headerTitle,
-        actionRef: next.actionRef,
-        toolBarRender: next.toolBarRender,
-      },
-      ['render', 'renderFormItem'],
-    );
-  };
-  shouldComponentUpdate = (next: ToolbarRenderProps<T>) => {
-    return !this.isEquals(next);
   };
 
   render = () => {
