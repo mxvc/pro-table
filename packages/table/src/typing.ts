@@ -15,10 +15,10 @@ import type { TableProps } from 'antd/lib/table';
 import type { ColumnFilterItem, ColumnType, CompareFn, SortOrder } from 'antd/lib/table/interface';
 import type React from 'react';
 import type { CSSProperties } from 'react';
-import type { SearchConfig, TableFormItem } from './components/Form/FormRender';
 import type { OptionConfig, ToolBarProps } from './components/ToolBar';
 import type { DensitySize } from './components/ToolBar/DensityIcon';
 import type { ColumnsState, useContainer } from './container';
+import {FormInstance} from "antd";
 
 export type PageInfo = {
   pageSize: number;
@@ -256,7 +256,7 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /**
    * @name 操作自带的 form
    */
-  formRef?: TableFormItem<T>['formRef'];
+  formRef?: React.Ref<FormInstance>
   /**
    * @name 渲染操作栏
    */
@@ -299,28 +299,14 @@ export type ProTableProps<T, U, ValueType = 'text'> = {
   /** @name 操作栏配置 */
   options?: OptionConfig | false;
 
-  /**
-   * @type SearchConfig
-   * @name 是否显示搜索表单
-   */
-  search?: false | SearchConfig;
+
 
   /**
    * 基本配置与 antd Form 相同, 但是劫持了 form onFinish 的配置
    *
-   * @name type="form" 和 搜索表单 的 Form 配置
    */
-  form?: Omit<ProFormProps & QueryFilterProps, 'form'>;
-  /**
-   * 暂时只支持 moment - string 会格式化为 YYYY-DD-MM - number 代表时间戳
-   *
-   * @name 如何格式化日期
-   */
-  dateFormatter?:
-    | 'string'
-    | 'number'
-    | ((value: moment.Moment, valueType: string) => string | number)
-    | false;
+  form?:FormInstance;
+
   /** @name 格式化搜索表单提交数据 */
   beforeSearchSubmit?: (params: Partial<U>) => any;
 

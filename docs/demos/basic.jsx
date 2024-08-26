@@ -10,6 +10,10 @@ const columns = [
         dataIndex: 'title',
     },
     {
+        title: 'locked',
+        dataIndex: 'locked',
+    },
+    {
         title: '状态',
         dataIndex: 'state',
         valueType: 'select',
@@ -78,11 +82,13 @@ export default () => {
                     params,
                 });
             }}
-            tooltip='1'
-            headerTitle='你好2'
             options={{
                 search:true,
             }}
+            search={{
+                labelWidth:'auto'
+            }}
+
             pagination={{pageSize:5}}
             rowKey="id"
             toolBarRender={() => [
@@ -90,6 +96,7 @@ export default () => {
                     新建
                 </Button>,
             ]}
+
         />
     );
 };
