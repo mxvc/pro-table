@@ -20,7 +20,7 @@ import React, {
 } from 'react';
 import { stringify } from 'use-json-comparison';
 import type { ActionType } from '.';
-import FormRender from './components/Form';
+import FormSearch from './components/Form';
 import Toolbar from './components/ToolBar';
 import Container from './container';
 import './index.less';
@@ -592,7 +592,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
   const searchNode =
     search === false ? null : (
-      <FormRender<T, U>
+      <FormSearch<T, U>
         pagination={pagination}
         beforeSearchSubmit={beforeSearchSubmit}
         action={actionRef}
@@ -607,8 +607,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         search={search}
         form={props.form}
         formRef={formRef}
-
-        dateFormatter={props.dateFormatter}
       />
     );
 
