@@ -4,7 +4,7 @@ import omit from 'omit.js';
 import React from 'react';
 import type { ActionType, ProTableProps } from '../../typing';
 import './index.less';
-import {getField} from "../../utils/valueType";
+import {getField} from "../../fields/valueType";
 import {omitUndefined} from "../../proutils";
 
 type BaseFormProps<T, U> = {

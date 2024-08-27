@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import type { useContainer } from '../container';
 import type { ProColumnGroupType, ProColumns } from '../typing';
 import { genColumnKey } from './index';
-import { getField } from './valueType';
+import { getField } from '../fields/valueType';
 import React from 'react';
 import {omitUndefinedAndEmptyArr} from "../proutils";
 /**
