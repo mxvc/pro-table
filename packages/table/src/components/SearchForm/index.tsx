@@ -20,7 +20,7 @@ type BaseFormProps<T, U> = {
   form?: FormInstance;
   formRef: React.RefObject<any>;
 };
-export default class FormSearch<T, U> extends React.Component<
+export default class SearchForm<T, U> extends React.Component<
   BaseFormProps<T, U> & { ghost?: boolean }
 > {
   /** 查询表单相关的配置 */
@@ -109,6 +109,7 @@ export default class FormSearch<T, U> extends React.Component<
         >
           {columnsFilter.map((col, index) => {
             const label = col.title as React.ReactNode;
+
             const Field = getField(col.valueType);
 
             return (

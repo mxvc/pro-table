@@ -1,8 +1,8 @@
-import { ProTable } from '@ant-design/pro-table';
+import { ProTable } from '@tmgg/pro-table';
 import request from 'umi-request';
 import { Checkbox } from 'antd';
 import React from 'react';
-import { registerField } from '@ant-design/pro-table';
+import { registerField } from '@tmgg/pro-table';
 
 class CheckboxFormField extends React.Component {
   render() {

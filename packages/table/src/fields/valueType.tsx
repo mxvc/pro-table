@@ -1,7 +1,8 @@
 const valueTypeMap = new Map();
 
 export function registerField(key: string, field:any) {
-  valueTypeMap.set(key,field)
+  console.log('注册valueType', key)
+  valueTypeMap.set(key, field)
 }
 
 export function getValueTypeMap() {
@@ -9,6 +10,7 @@ export function getValueTypeMap() {
 }
 
 export function getField(key: string) {
+  console.debug('valueTypes', Object.keys(valueTypeMap))
   return valueTypeMap.get(key) || valueTypeMap.get('text')
 }
 

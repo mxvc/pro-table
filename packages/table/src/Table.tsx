@@ -29,6 +29,10 @@ import { genColumnKey, mergePagination, parseDefaultColumnConfig, useActionType 
 import { columnSort } from './utils/columnSort';
 import { genProColumnToColumn } from './utils/genProColumnToColumn';
 import {omitUndefined, useDeepCompareEffect, useDeepCompareEffectDebounce, useMountMergeState} from "./proutils";
+import {registerAllField} from "./fields";
+import SearchForm from "./components/SearchForm";
+
+registerAllField()
 
 function TableRender<T extends Record<string, any>, U, ValueType>(
   props: ProTableProps<T, U, ValueType> & {
@@ -571,7 +575,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
 
   const searchNode =
     search === false ? null : (
-      <FormSearch<T, U>
+      <SearchForm<T, U>
         pagination={pagination}
         beforeSearchSubmit={beforeSearchSubmit}
         action={actionRef}

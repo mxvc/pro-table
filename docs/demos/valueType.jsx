@@ -1,4 +1,4 @@
-import { ProTable } from '@ant-design/pro-table';
+import { ProTable } from '@tmgg/pro-table';
 import request from 'umi-request';
 
 export default () => {

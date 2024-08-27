@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { ProTable } from '@ant-design/pro-table';
+import { ProTable } from '@tmgg/pro-table';
 import { Button } from 'antd';
 import request from 'umi-request';
 
