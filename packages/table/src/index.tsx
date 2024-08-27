@@ -3,7 +3,9 @@ import type { ColumnsState } from './container';
 import ProTable from './Table';
 import type { ActionType, ProColumns, ProColumnType, ProTableProps, RequestData } from './typing';
 
+import './fields'
+
 export type { ProTableProps, ActionType, ColumnsState, ProColumns, ProColumnType, RequestData };
 export { ProTable };
-export * from './utils/valueType';
+export * from './fields/valueType';
 export default ProTable;

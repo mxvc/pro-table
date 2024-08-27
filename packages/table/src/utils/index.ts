@@ -100,10 +100,6 @@ export function postDataPipeline<T>(data: T, pipeline: PostDataType<T>[]) {
     return postData(pre);
   }, data);
 }
-export const isMergeCell = (
-  dom: any, // 如果是合并单元格的，直接返回对象
-) => dom && typeof dom === 'object' && dom?.props?.colSpan;
-
 /**
  * 根据 key 和 dataIndex 生成唯一 id
  *

@@ -20,7 +20,7 @@ class CheckboxFormField extends React.Component {
   }
 }
 
-registerField('boolean', CheckboxFormField);
+registerField('booleanX', CheckboxFormField);
 
 export default () => {
   return (
@@ -30,7 +30,7 @@ export default () => {
           {
             title: 'locked',
             dataIndex: 'locked',
-            valueType: 'boolean',
+            valueType: 'booleanX',
           },
         ]}
         request={async (params = {}, sort, filter) => {
