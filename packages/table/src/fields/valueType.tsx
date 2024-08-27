@@ -1,6 +1,3 @@
-import { Input } from 'antd';
-import React from 'react';
-
 const valueTypeMap = new Map();
 
 export function registerField(key: string, field:any) {
@@ -22,16 +19,6 @@ export declare type FieldProps = {
   fieldProps: any;
 };
 
-class FieldText extends React.Component<FieldProps, any> {
-  render() {
-    if (this.props.mode == 'read') {
-      return this.props.value;
-    }
 
-    return (
-      <Input value={this.props.value} onChange={this.props.onChange} {...this.props.fieldProps} />
-    );
-  }
-}
 
-registerField('text', FieldText);
+

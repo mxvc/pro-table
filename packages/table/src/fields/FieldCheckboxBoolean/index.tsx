@@ -1,7 +1,8 @@
 import React from "react";
 import {Checkbox} from "antd";
+import {FieldProps} from "../valueType";
 
- export default class  extends React.Component {
+ export default class  extends React.Component<FieldProps> {
 
     render() {
         if (this.props.mode === 'read') {
