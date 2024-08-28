@@ -21,7 +21,7 @@ type BaseFormProps<T, U> = {
   formRef: React.RefObject<any>;
 };
 export default class SearchForm<T, U> extends React.Component<
-  BaseFormProps<T, U> & { ghost?: boolean }
+  BaseFormProps<T, U>
 > {
   /** 查询表单相关的配置 */
 

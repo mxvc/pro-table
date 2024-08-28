@@ -240,7 +240,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
     defaultData,
     headerTitle,
     postData,
-    ghost,
     pagination: propsPagination,
     actionRef: propsActionRef,
     columns: propsColumns = [],
@@ -584,7 +583,6 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
         onFormSearchSubmit={(values) => {
           onFormSearchSubmit(values);
         }}
-        ghost={ghost}
         onReset={props.onReset}
         onSubmit={props.onSubmit}
         loading={!!loading}
