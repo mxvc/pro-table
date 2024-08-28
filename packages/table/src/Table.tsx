@@ -460,6 +460,7 @@ const ProTable = <T extends Record<string, any>, U extends ParamsType, ValueType
   }, [propsRowSelection, setSelectedRowsAndKey]);
 
   counter.setAction(actionRef.current);
+  // @ts-ignore
   counter.propsRef.current = props;
 
   /** 绑定 action */
