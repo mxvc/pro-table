@@ -1,0 +1,35 @@
+/*antd4的一些*/
+@ant-prefix: ant;
+@component-background: #fff;
+@font-size-base: 14px;
+@primary: #1961AC;
+@primary-color: #1961AC;
+@black: #000;
+@item-active-bg: @primary;
+@text-color-secondary: fade(@black, 45%);
+@primary-color-hover:#4990CD;
+
+@padding-md: 8px;
+@margin-md: 16px; // small containers and buttons
+@margin-lg: 24px; // containers
+
+@heading-color: fade(@black, 85%);
+@label-color: @heading-color;
+@screen-xs: 480px;
+@font-size-lg: @font-size-base + 2px;
+@icon-color-hover: fade(@black, 75%);
+
+.clearfix() {
+  // https://github.com/ant-design/ant-design/issues/21301#issuecomment-583955229
+  &::before {
+    display: table;
+    content: '';
+  }
+
+  &::after {
+    // https://github.com/ant-design/ant-design/issues/21864
+    display: table;
+    clear: both;
+    content: '';
+  }
+}

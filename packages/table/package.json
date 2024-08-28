@@ -32,9 +32,9 @@
     "ie >= 11"
   ],
   "dependencies": {
-    "@ant-design/icons": "^4.1.0",
+    "@ant-design/icons": "^5.0.0",
     "@babel/runtime": "^7.18.0",
-    "antd": "^4.20.0 ",
+    "antd": "^5.0.0 ",
     "classnames": "^2.2.6",
     "moment": "^2.24.0",
     "omit.js": "^2.0.2",
@@ -44,7 +44,6 @@
     "use-json-comparison": "^1.0.5"
   },
   "peerDependencies": {
-    "rc-field-form": "^1.22.0",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },
