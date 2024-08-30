@@ -97,7 +97,7 @@ export function genProColumnToColumn<T>(
           if (!columnProps.render) {
             const Field = getField(columnProps.valueType);
             // @ts-ignore
-            return <Field value={text} mode="read" />;
+            return <Field value={text} mode="read" params={columnProps.params} />;
           }
 
           // @ts-ignore
