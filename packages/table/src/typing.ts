@@ -68,10 +68,6 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     /** 搜索表单的默认值 */
     initialValue?: any;
 
-    /** @name 是否缩略 */
-    ellipsis?: boolean | { showTitle?: boolean };
-    /** @name 是否拷贝 */
-    copyable?: boolean;
 
     /** @deprecated Use `search=false` instead 在查询表单中隐藏 */
     hideInSearch?: boolean;
@@ -81,8 +77,6 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     /** @name 在 table 中隐藏 */
     hideInTable?: boolean;
 
-    /** @name 在新建表单中删除 */
-    hideInForm?: boolean;
 
     /** @name 不在配置工具中显示 */
     hideInSetting?: boolean;
